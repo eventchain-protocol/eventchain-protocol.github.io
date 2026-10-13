@@ -128,7 +128,6 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">EventChain: Consensus by Comparison</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/eventchain-protocol/eventchain-protocol.github.io" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./EventChain--Consensus-by-Comparison.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
@@ -364,13 +363,65 @@ Figure&nbsp;3.1: A new validator participates before ledger commitment; a new Ev
 </div>
 </div>
 <p>A ledger can also serve read-only users without adding validators, and consensus need not wait for every member’s vote. Adding an EventChain holder adds one copy of the file and that holder’s own checks; existing holders do not repeat verification for it. The application’s business rules still apply: if dispatch requires the new company’s acceptance, the smart contract waits for it (<a href="the-provenance-problem.html#fig-delivery-reconciliation" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>).</p>
-<p>In the author’s runs the reference Hub accepted more than 10,000 appends a second on one thread per topic (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>). Each holder receives one line of about 335 bytes per event and verifies its copy on its own processor at its own pace. A holder that verified yesterday’s copy checks only today’s new entries. No fee attaches to an event. These measurements describe different workloads and environments: observed Ethereum traffic is not network capacity, and the figures are not a comparative throughput benchmark.</p>
-<p>Producers that write into one topic race for its head, because each signs over the head it last verified and the Hub keeps the first submission to arrive (<a href="how-it-works.html#sec-append-protocol" class="quarto-xref"><span>Section 4.4</span></a>). The author measured that race on 13 October 2026, on one laptop, with the reference producer and a Hub model that checks the head only <span class="citation" data-cites="eventchain2026contention">(<a href="references.html#ref-eventchain2026contention" role="doc-biblioref">EventChain 2026b</a>)</span>. The topic committed 43,000 to 45,000 entries a second with no delay in flight, whatever the number of producers, because the head is one place; the rate falls as the round trip lengthens, to 4,300 to 4,400 a second at 200 microseconds and 46 to 48 at 20 milliseconds, within 5 per cent of what the append rule predicts once any delay is present. A producer that loses a race signs the same event again, at about 22 microseconds a signature, and nothing else happens: a rejected submission writes nothing, so the file never grows by more than one line per accepted entry, and the Hub’s rate, the file and the holders’ checks stay as they were. Races occur when several events reach the Hub within one producer’s round trip. With twelve producers and no delay in flight, 300 events a second cost 1.2 signatures per committed entry and 3,000 a second cost 2.3; when all twelve submit as fast as they can, each committed entry costs one signature from every producer racing for it. The supplier’s eleven readings a second sit far below the lowest rate the measurement offered. The append rule has no fairness property: with twelve producers saturating the topic at 20 milliseconds in flight, one producer committed nothing in a two-second window. A process that puts many fast producers into one topic can give them topics of their own, because topics proceed independently (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>).</p>
-<p><a href="#tbl-scale-example" class="quarto-xref">Table&nbsp;<span>3.2</span></a> applies these figures to the supplier.</p>
+<p>Each submitted line costs the Hub the three checks a verifier makes: well-formedness, predecessor hash and signature (<a href="how-it-works.html#sec-append-protocol" class="quarto-xref"><span>Section 4.4</span></a>). The reference verifier makes them at 42 seconds per million entries on one core of an Apple M4 Max <span class="citation" data-cites="eventchain2026verifier">(<a href="references.html#ref-eventchain2026verifier" role="doc-biblioref">EventChain 2026a</a>)</span>: 24,000 lines a second on one thread per topic (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>), with no round of votes and no fee. Each holder receives one line of about 335 bytes per event and verifies its copy on its own processor at its own pace. A holder that verified yesterday’s copy checks only today’s new entries. These measurements describe different workloads and environments: observed Ethereum traffic is not network capacity, and the figures are not a comparative throughput benchmark.</p>
+<p>Batching spreads the trip to the Hub across many events. A benchmark of the reference producer on 13 October 2026 measured it against a compare-and-append Hub model <span class="citation" data-cites="eventchain2026batching">(<a href="references.html#ref-eventchain2026batching" role="doc-biblioref">EventChain 2026b</a>)</span>. Each producer signed a sequence of entries, each over the one before, and submitted them together; the Hub accepted the whole batch when its first entry followed the current head, the predecessor-hash check that binds the batch to the whole history, and the benchmark then checked format and signatures on every output file: all 160 passed. <a href="#tbl-producer-batching" class="quarto-xref">Table&nbsp;<span>3.2</span></a> shows the committed entries per second with a 20-millisecond in-flight delay, which delivered about 21 milliseconds in the run.</p>
+<div id="tbl-producer-batching" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-producer-batching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.2: Entries committed per second into one topic at a 20-millisecond in-flight delay; ranges across two four-second runs at saturating load
+</figcaption>
+<div aria-describedby="tbl-producer-batching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Entries per batch</th>
+<th style="text-align: right;">One producer</th>
+<th style="text-align: right;">Ten producers</th>
+<th style="text-align: right;">Twelve producers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">48–49</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">3,873–3,898</td>
+<td style="text-align: right;">3,999–4,024</td>
+<td style="text-align: right;">4,025–4,048</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">9,071–9,074</td>
+<td style="text-align: right;">8,772–8,924</td>
+<td style="text-align: right;">8,471–8,621</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">17,241–17,247</td>
+<td style="text-align: right;">12,748–13,743</td>
+<td style="text-align: right;">11,497–12,244</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">23,239–23,243</td>
+<td style="text-align: right;">14,245–14,246</td>
+<td style="text-align: right;">12,743–12,745</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Each event keeps its own signature and its own line in the file. Larger batches spread the delay across more entries, so throughput approaches one producer’s signing rate. Producers that race for the same head spend more CPU: under saturating load, ten producers make about ten signatures per committed entry, because each loser signs its batch again against the new head. Larger batches also make producers wait longer. With ten producers and batches of 3,000 at this delay, median latency from the first signature to acceptance was 1.02 seconds, and the 99th percentile was 3.29 seconds; an event also waits for its batch to fill. Some producers committed nothing during the four-second windows. A process that needs independent producers to progress can give them topics of their own (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>).</p>
+<p><a href="#tbl-scale-example" class="quarto-xref">Table&nbsp;<span>3.3</span></a> applies these figures to the supplier.</p>
 <div id="tbl-scale-example" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scale-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3.2: Fleet arithmetic: 10,000 meters, one reading every fifteen minutes (960,000 entries a day, about eleven a second)
+Table&nbsp;3.3: Fleet arithmetic: 10,000 meters, one reading every fifteen minutes (960,000 entries a day, about eleven a second)
 </figcaption>
 <div aria-describedby="tbl-scale-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -386,15 +437,15 @@ Table&nbsp;3.2: Fleet arithmetic: 10,000 meters, one reading every fifteen minut
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Hub-thread utilisation at 10,000 appends a second</td>
-<td style="text-align: left;">About one part in 900; reference-Hub rate from the author’s runs</td>
+<td style="text-align: left;">Hub-thread utilisation at the per-line check cost above</td>
+<td style="text-align: left;">About one part in 2,000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">File growth per holder</td>
 <td style="text-align: left;">About 320 MB a day</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Verification time per holder, on one laptop core</td>
+<td style="text-align: left;">Verification time per holder, on one core of an Apple M4 Max</td>
 <td style="text-align: left;">About 40 seconds per day of entries; October 2026 benchmark of 42 seconds per million entries <span class="citation" data-cites="eventchain2026verifier">(<a href="references.html#ref-eventchain2026verifier" role="doc-biblioref">EventChain 2026a</a>)</span></td>
 </tr>
 </tbody>
@@ -437,8 +488,8 @@ Etherscan. 2026. <em>Ethereum Daily Transactions Chart</em>. <a href="https://et
 <div id="ref-eventchain2026verifier" class="csl-entry" role="listitem">
 EventChain. 2026a. <em>Minimal Actual-File Verifier Evidence</em>. Reproducible reference-implementation benchmark.
 </div>
-<div id="ref-eventchain2026contention" class="csl-entry" role="listitem">
-EventChain. 2026b. <em>Producer Contention: What Many Signers Racing for One Head Cost</em>. Reproducible reference-implementation benchmark.
+<div id="ref-eventchain2026batching" class="csl-entry" role="listitem">
+EventChain. 2026b. <em>Producer Batching: What Signing Events in Batches Buys Under Contention</em>. Reproducible reference-implementation benchmark.
 </div>
 <div id="ref-haberstornetta1991" class="csl-entry" role="listitem">
 Haber, Stuart, and W. Scott Stornetta. 1991. <span>“How to Time-Stamp a Digital Document.”</span> <em>Journal of Cryptology</em> 3 (2): 99–111. <a href="https://doi.org/10.1007/BF00196791">https://doi.org/10.1007/BF00196791</a>.
