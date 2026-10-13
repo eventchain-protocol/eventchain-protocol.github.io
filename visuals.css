@@ -27,3 +27,19 @@ main .quarto-float-tbl .table-scroll-hint {
   main .quarto-float-tbl > div[aria-describedby] { overflow: visible; }
   .table-scroll-hint { display: none; }
 }
+
+/* The reading-map link at the head of the sidebar reads like a chapter entry, underlined. */
+#quarto-sidebar .quarto-sidebar-header .sidebar-header-item p {
+  margin: .4rem 0 .2em;
+  font-size: .925rem;
+  line-height: 1rem;
+  color: hsl(0, 0%, 35%);
+}
+#quarto-sidebar .quarto-sidebar-header .sidebar-header-item a {
+  color: inherit;
+  text-decoration: underline;
+}
+#quarto-sidebar .quarto-sidebar-header .sidebar-header-item a:hover,
+#quarto-sidebar .quarto-sidebar-header .sidebar-header-item a:focus {
+  color: rgba(32.76, 81.48, 190.68, .8);
+}
