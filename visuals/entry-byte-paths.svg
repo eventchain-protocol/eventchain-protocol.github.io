@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-labelledby="title desc">
+<title id="title">One stored line, two different byte paths</title><desc id="desc">A stored JSON line ends in LF. The exact bytes before LF are hashed directly with SHA-256 to produce the Event ID used by the next prev_hash. Separately, parse and validate the object, reject malformed entries, remove exactly signature, and canonicalise all remaining permitted members with JCS to obtain the signed message.</desc>
+<style>text{font:17px Arial,sans-serif;fill:currentColor}.bold{font-weight:bold}.line{fill:none;stroke:currentColor;stroke-width:1.5}.arrow{marker-end:url(#a)}</style><defs><marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="currentColor"/></marker></defs>
+<rect x="12" y="15" width="315" height="48" class="line"/><text x="169" y="45" text-anchor="middle">Stored JSON line bytes</text><text x="348" y="45">LF</text><path d="M12 71V80H327V71" class="line"/><text x="169" y="106" text-anchor="middle">Exact-line hash input</text>
+<path d="M90 112V144" class="line arrow"/><path d="M290 112V144" class="line arrow"/>
+<text x="12" y="174" class="bold">Hash path</text><text x="210" y="174" class="bold">Signature path</text>
+<text x="12" y="208">No canonicalisation</text><text x="210" y="208">Parse and validate</text>
+<path d="M90 221V245" class="line arrow"/><path d="M290 221V245" class="line arrow"/>
+<text x="12" y="272">SHA-256</text><text x="210" y="272">Remove signature</text>
+<path d="M90 286V310" class="line arrow"/><path d="M290 286V310" class="line arrow"/>
+<text x="12" y="335" class="bold">Event ID</text><text x="210" y="335">JCS of every other</text><text x="210" y="358">permitted member</text>
+<text x="12" y="367">Next prev_hash</text><path d="M290 369V393" class="line arrow"/><text x="210" y="421" class="bold">Signed message</text>
+<path d="M12 439H388" class="line"/><text x="12" y="466">Reject malformed objects before JCS.</text>
+</svg>

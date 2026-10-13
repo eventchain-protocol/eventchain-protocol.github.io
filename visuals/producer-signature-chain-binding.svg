@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="760" viewBox="0 0 360 760" role="img" aria-labelledby="title desc">
+  <title id="title">Producer signatures bind payload commitments and predecessors</title>
+  <desc id="desc">Two adjacent AOF lines have producer-signature coverage brackets around prev_hash, payload_hash and all other permitted members except signature. Line B's prev_hash points backward to h_A, the SHA-256 hash of line A's exact written bytes excluding the final line feed. Producer signatures use JCS rather than the exact written bytes. Outside the AOF, raw salt followed by exact plaintext bytes hashes to line B's payload commitment p_B. Ciphertext storage is separate. Hash links alone do not authenticate a chain, and a retained head or covering heartbeat binds a final line with no successor.</desc>
+  <defs>
+    <style>text{font-family:Arial,Helvetica,sans-serif;fill:#20252b;font-size:15px}.heading{font-size:17px;font-weight:700}.mono{font-family:ui-monospace,monospace;font-size:14px}.note{font-size:14px}.box{fill:#f5f6f7;stroke:#303840;stroke-width:1.5}.bracket{fill:none;stroke:#20252b;stroke-width:2}</style>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7Z" fill="#303840"/></marker>
+  </defs>
+  <text x="18" y="22" class="heading">Brackets: producer-signature coverage</text>
+  <text x="18" y="44" class="note">JCS of all permitted members except signature</text>
+  <text x="30" y="75" class="heading">Adjacent line A</text>
+  <rect x="30" y="88" width="280" height="125" rx="4" class="box"/>
+  <path d="M24 95 H12 V178 H24" class="bracket"/>
+  <text x="44" y="112" class="mono">prev_hash: preceding line hash</text>
+  <text x="44" y="140" class="mono">payload_hash: p_A</text>
+  <text x="44" y="168">all other signed members</text>
+  <path d="M30 181 H310" stroke="#8a929a"/>
+  <text x="44" y="201" class="mono">signature: producer A</text>
+  <path d="M170 213 V229" stroke="#303840" marker-end="url(#arrow)"/>
+  <rect x="30" y="232" width="280" height="52" rx="4" class="box"/>
+  <text x="44" y="253" class="note">Exact written line A, excluding final LF</text>
+  <text x="44" y="274" class="mono">SHA-256 → h_A</text>
+  <text x="30" y="313" class="heading">Adjacent line B</text>
+  <rect x="30" y="326" width="280" height="125" rx="4" class="box"/>
+  <path d="M24 333 H12 V416 H24" class="bracket"/>
+  <text x="44" y="350" class="mono">prev_hash: h_A</text>
+  <text x="44" y="378" class="mono">payload_hash: p_B</text>
+  <text x="44" y="406">all other signed members</text>
+  <path d="M30 419 H310" stroke="#8a929a"/>
+  <text x="44" y="439" class="mono">signature: producer B</text>
+  <path d="M310 348 H336 V268 H312" fill="none" stroke="#303840" stroke-width="1.7" marker-end="url(#arrow)"/>
+  <text x="30" y="481" class="heading">Outside the AOF: commitment p_B</text>
+  <rect x="30" y="496" width="300" height="66" rx="4" class="box"/>
+  <text x="45" y="520">Raw salt bytes</text>
+  <text x="45" y="545">followed by exact plaintext bytes</text>
+  <path d="M180 562 V580" stroke="#303840" marker-end="url(#arrow)"/>
+  <text x="180" y="603" text-anchor="middle" class="strong">SHA-256</text>
+  <path d="M180 614 V629" stroke="#303840" marker-end="url(#arrow)"/>
+  <text x="180" y="652" text-anchor="middle" class="mono">p_B = line B's payload_hash</text>
+  <text x="18" y="682" class="note">Stored ciphertext is not the hash input.</text>
+  <text x="18" y="704" class="note">The Hub has no plaintext or decryption keys.</text>
+  <text x="18" y="732" class="note">No successor? A retained head or covering</text>
+  <text x="18" y="752" class="note">heartbeat binds the final line's exact bytes.</text>
+</svg>

@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix: Comparison Tables – EventChain: Consensus by Comparison</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./appendix-specification.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="describedby" href="https://eventchain-protocol.github.io/llms.txt">
+
+
+<link rel="stylesheet" href="visuals.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendix-standards-positioning.html">Appendix: Comparison Tables</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+</div></div>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">EventChain: Consensus by Comparison</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/eventchain-protocol/eventchain-protocol.github.io" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./EventChain--Consensus-by-Comparison.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Executive Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the-provenance-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconciliation After the Fact</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus-by-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./how-it-works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./open-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Open Protocol</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./use-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Worked Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Specification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-standards-positioning.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Appendix: Comparison Tables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-standards-lineage" id="toc-sec-standards-lineage" class="nav-link active" data-scroll-target="#sec-standards-lineage">Standards Lineage</a></li>
+  <li><a href="#sec-adversarial-hub" id="toc-sec-adversarial-hub" class="nav-link" data-scroll-target="#sec-adversarial-hub">Dishonest Hub</a></li>
+  <li><a href="#sec-appendix-trust-boundary" id="toc-sec-appendix-trust-boundary" class="nav-link" data-scroll-target="#sec-appendix-trust-boundary">Trust Boundary</a></li>
+  <li><a href="#sec-appendix-failure-modes" id="toc-sec-appendix-failure-modes" class="nav-link" data-scroll-target="#sec-appendix-failure-modes">Failure Modes</a></li>
+  <li><a href="#sec-appendix-choosing" id="toc-sec-appendix-choosing" class="nav-link" data-scroll-target="#sec-appendix-choosing">Choosing an Approach</a></li>
+  <li><a href="#sec-appendix-dependencies" id="toc-sec-appendix-dependencies" class="nav-link" data-scroll-target="#sec-appendix-dependencies">Deployment Dependencies</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-appendix-standards-positioning" class="quarto-section-identifier">Appendix: Comparison Tables</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 13, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This appendix holds the comparison tables that <a href="consensus-by-comparison.html" class="quarto-xref"><span>3&nbsp; Consensus by Comparison</span></a> relies on and shows how EventChain relates to existing transparency and provenance systems.</p>
+<section id="sec-standards-lineage" class="level2">
+<h2 class="anchored" data-anchor-id="sec-standards-lineage">Standards Lineage</h2>
+<p>EventChain sits in a lineage of cryptographic accountability systems. Haber and Stornetta established hash-linked time-stamping as a way to make document history tamper-evident without a conventional record-keeper <span class="citation" data-cites="haberstornetta1991">(<a href="references.html#ref-haberstornetta1991" role="doc-biblioref">Haber and Stornetta 1991</a>)</span>. Certificate Transparency and Trillian turned append-only transparency logs into operational infrastructure for public certificates <span class="citation" data-cites="rfc6962 trillian">(<a href="references.html#ref-rfc6962" role="doc-biblioref">Laurie et al. 2013</a>; <a href="references.html#ref-trillian" role="doc-biblioref">Google 2026</a>)</span>. SCITT generalises transparency receipts for supply-chain statements using COSE/CBOR and external transparency services <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026</a>)</span>. KERI focuses on self-certifying identifiers and key-event logs for decentralised identity <span class="citation" data-cites="keri2019">(<a href="references.html#ref-keri2019" role="doc-biblioref">Smith 2019</a>)</span>. Parakeet demonstrates privacy-preserving transparency through public commitments, private querying, and verifiable proof <span class="citation" data-cites="parakeet2023">(<a href="references.html#ref-parakeet2023" role="doc-biblioref">Malvai et al. 2023</a>)</span>. TrustChain shows that a blockchain can preserve data while leaving truth at origin unresolved <span class="citation" data-cites="malik2019">(<a href="references.html#ref-malik2019" role="doc-biblioref">Malik et al. 2019</a>)</span>.</p>
+<p>EventChain borrows the durable lessons and chooses a different operating point: identity-bound event authorship, portable proof artefacts, role-aware distribution, lightweight verification, and optional public time anchoring.</p>
+<div id="tbl-prior-art" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-prior-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Provenance and transparency architectures compared
+</figcaption>
+<div aria-describedby="tbl-prior-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">EventChain</th>
+<th style="text-align: left;">SCITT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Primary object</td>
+<td style="text-align: left;">Signed event history</td>
+<td style="text-align: left;">Supply-chain statement receipt</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attribution</td>
+<td style="text-align: left;">Signing key plus enrolment evidence</td>
+<td style="text-align: left;">Entity via X.509 or OIDC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Proof location</td>
+<td style="text-align: left;">Travels with authorised holders</td>
+<td style="text-align: left;">Receipt can travel with signed statement</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Verification</td>
+<td style="text-align: left;">Offline chain/signatures; separate binding and heartbeat evidence</td>
+<td style="text-align: left;">Receipt, accepted service keys and proofs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tooling</td>
+<td style="text-align: left;">JSON Lines, SHA-256, ECDSA-P256, JCS and passkeys</td>
+<td style="text-align: left;">COSE/CBOR, verifiable structures and registry</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Storage/distribution</td>
+<td style="text-align: left;">Hub distribution; application payload access</td>
+<td style="text-align: left;">Left to implementers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Access control</td>
+<td style="text-align: left;">Application policy over encrypted payloads</td>
+<td style="text-align: left;">Out of scope</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Two-party agreement</td>
+<td style="text-align: left;">Offer and signed acceptance (<a href="how-it-works.html#sec-cbc" class="quarto-xref"><span>Cryptographically Bound Contracts</span></a>)</td>
+<td style="text-align: left;">Application-defined</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-prior-art-lineage" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-prior-art-lineage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Earlier transparency and identity systems, using the same comparison properties
+</figcaption>
+<div aria-describedby="tbl-prior-art-lineage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">CT / Trillian</th>
+<th style="text-align: left;">Haber &amp; Stornetta</th>
+<th style="text-align: left;">KERI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Primary object</td>
+<td style="text-align: left;">Certificate log entry</td>
+<td style="text-align: left;">Time-stamped document hash</td>
+<td style="text-align: left;">Key-event history</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attribution</td>
+<td style="text-align: left;">Certificate authority / subject</td>
+<td style="text-align: left;">Requester identifier in the time-stamp certificate</td>
+<td style="text-align: left;">Identifier controller</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Proof location</td>
+<td style="text-align: left;">External log</td>
+<td style="text-align: left;">External time-stamp chain</td>
+<td style="text-align: left;">Key-event log that travels with the identifier</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Verification</td>
+<td style="text-align: left;">Inclusion / consistency proof</td>
+<td style="text-align: left;">Chain through time-stamp service</td>
+<td style="text-align: left;">Key-event log verification</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tooling</td>
+<td style="text-align: left;">Merkle log infrastructure</td>
+<td style="text-align: left;">Hash chain and time-stamp service</td>
+<td style="text-align: left;">KEL and witness infrastructure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Storage/distribution</td>
+<td style="text-align: left;">Outside certificate-log scope</td>
+<td style="text-align: left;">Outside protocol scope</td>
+<td style="text-align: left;">Outside protocol scope</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Access control</td>
+<td style="text-align: left;">Public log model</td>
+<td style="text-align: left;">Out of scope</td>
+<td style="text-align: left;">Out of scope</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Two-party agreement</td>
+<td style="text-align: left;">Outside scope</td>
+<td style="text-align: left;">Outside scope</td>
+<td style="text-align: left;">Outside scope</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>SCITT and EventChain operate at different layers. SCITT answers whether a transparency service registered a signed statement; its receipt can accompany the statement for verification <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026, sec. 7</a>)</span>. EventChain preserves producer-signed entries and their sequence in a portable file. An organisation could register an EventChain head in a SCITT transparency service for additional public auditability.</p>
+</section>
+<section id="sec-adversarial-hub" class="level2">
+<h2 class="anchored" data-anchor-id="sec-adversarial-hub">Dishonest Hub</h2>
+<p>The Hub accepts producer-signed entries, orders them and serves authorised copies. <a href="#tbl-adversarial-hub" class="quarto-xref">Table&nbsp;<span>3</span></a> sets out what a dishonest Hub can attempt, how a holder detects it and what risk remains. <a href="how-it-works.html#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> shows the comparison each holder makes.</p>
+<div id="tbl-adversarial-hub" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-adversarial-hub-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Adversarial Hub failure modes, detection paths, and residual risks
+</figcaption>
+<div aria-describedby="tbl-adversarial-hub-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Failure Mode</th>
+<th style="text-align: left;">Detection Path</th>
+<th style="text-align: left;">Residual Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hub alters an old entry</td>
+<td style="text-align: left;">Chain and producer-signature checks expose alterations; a retained head or a later heartbeat also binds exact final-entry bytes</td>
+<td style="text-align: left;">A party must run verification; hash checks alone authenticate nothing without the producer signatures</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hub withholds an entry from a role-authorised party</td>
+<td style="text-align: left;">A supplied copy falls short of or conflicts with the published heartbeat</td>
+<td style="text-align: left;">The file cannot establish receipt of an unacknowledged submission; missing or stale heartbeats alone do not prove withholding</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hub binds a valid signature to wrong payload</td>
+<td style="text-align: left;">Holder recomputes the salted payload hash from the plaintext and salt</td>
+<td style="text-align: left;">Parties lacking the exact plaintext and salt cannot test that hash</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hub presents different histories to different holders (a fork)</td>
+<td style="text-align: left;">Each holder compares its copy with the heartbeat list; conflicting Hub-signed heartbeats attribute the fork to the Hub’s key</td>
+<td style="text-align: left;">Detection requires a heartbeat list that keeps every heartbeat and shows everyone the same list; fresh entries await the next heartbeat</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>If the heartbeat list (<a href="how-it-works.html#sec-hub-heartbeat" class="quarto-xref"><span>Hub Heartbeat</span></a>) is unreachable, the file alone provides fork consistency: incompatible branches become detectable when holders compare copies <span class="citation" data-cites="li2004sundr">(<a href="references.html#ref-li2004sundr" role="doc-biblioref">Li et al. 2004</a>)</span>. OpenTimestamps receipts cannot stand in for the list (<a href="how-it-works.html#sec-ots-rollups" class="quarto-xref"><span>OpenTimestamps</span></a>).</p>
+<p>The Hub’s one remaining duty, staying available to accept new entries and serve copies, rests on the Hub service provider’s service agreement.</p>
+</section>
+<section id="sec-appendix-trust-boundary" class="level2">
+<h2 class="anchored" data-anchor-id="sec-appendix-trust-boundary">Trust Boundary</h2>
+<p>Holders verify integrity and order from the file. Naming signers and checking freshness need external evidence, and applications govern payload access and decisions (<a href="#tbl-trust-boundary" class="quarto-xref">Table&nbsp;<span>4</span></a>).</p>
+<div id="tbl-trust-boundary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-trust-boundary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Trust boundary in the EventChain architecture
+</figcaption>
+<div aria-describedby="tbl-trust-boundary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Capability group</th>
+<th style="text-align: left;">Evidence or responsibility</th>
+<th style="text-align: left;">Remaining dependency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Holder checks: integrity and order</td>
+<td style="text-align: left;">Verify links and producer signatures offline</td>
+<td style="text-align: left;">Correct verifier and retained AOF</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Holder checks: payload commitment</td>
+<td style="text-align: left;">Hash raw salt followed by exact plaintext bytes</td>
+<td style="text-align: left;">Authorised access to plaintext and salt</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">External evidence: authorship</td>
+<td style="text-align: left;">Verify key signature; assess identity binding (<a href="how-it-works.html#tbl-key-binding" class="quarto-xref">Table&nbsp;<span>4.2</span></a>)</td>
+<td style="text-align: left;">Retained enrolment and dispute evidence</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">External evidence: freshness/shared history</td>
+<td style="text-align: left;">Compare with authenticated heartbeat (<a href="how-it-works.html#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>)</td>
+<td style="text-align: left;">Accepted Hub key; preserved same list; publication interval</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Operations: appending/distribution</td>
+<td style="text-align: left;">Hub accepts entries and serves copies</td>
+<td style="text-align: left;">Availability; application-controlled payload access</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Operations: search/indexing</td>
+<td style="text-align: left;">Hub supplies discovery and query results</td>
+<td style="text-align: left;">Check returned evidence against retained history</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Operations: portal views</td>
+<td style="text-align: left;">Application presents selected evidence</td>
+<td style="text-align: left;">Presentation and action policy remain application duties</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-appendix-failure-modes" class="level2">
+<h2 class="anchored" data-anchor-id="sec-appendix-failure-modes">Failure Modes</h2>
+<p>The following tables separate what the evidence establishes from what remains unknown and requires operating controls.</p>
+<div id="tbl-failure-integrity-verification" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-failure-integrity-verification-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: History integrity and verification
+</figcaption>
+<div aria-describedby="tbl-failure-integrity-verification-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 29%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Failure mode</th>
+<th style="text-align: left;">What the evidence establishes</th>
+<th style="text-align: left;">What remains unknown</th>
+<th style="text-align: left;">Complementary control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tampered entry (post-signing edit)</td>
+<td style="text-align: left;">Chain or producer-signature checks fail (<a href="#tbl-adversarial-hub" class="quarto-xref">Table&nbsp;<span>3</span></a>)</td>
+<td style="text-align: left;">Checks do not necessarily locate the original alteration</td>
+<td style="text-align: left;">Routine verification by holders</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Verification never run</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">A valid file that no party bothers to check</td>
+<td style="text-align: left;">Contractual verification obligations, automated verification triggers</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-failure-signer-conduct" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-failure-signer-conduct-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Signer conduct
+</figcaption>
+<div aria-describedby="tbl-failure-signer-conduct-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 29%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Failure mode</th>
+<th style="text-align: left;">What the evidence establishes</th>
+<th style="text-align: left;">What remains unknown</th>
+<th style="text-align: left;">Complementary control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">False data from an authorised signer</td>
+<td style="text-align: left;">Signature identifies the key; enrolment evidence supports attribution</td>
+<td style="text-align: left;">The falsehood itself, and the intent behind it</td>
+<td style="text-align: left;">Process controls, cross-checks, independent measurement, separation of duties</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Honest signer error</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Mistakes that produce valid-looking entries</td>
+<td style="text-align: left;">Quality systems, peer review, calibration</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Coerced signature</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Duress behind a technically valid signature</td>
+<td style="text-align: left;">Whistleblower channels, dual-control policies</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rubber-stamping</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Perfunctory signatures without genuine review</td>
+<td style="text-align: left;">Audit culture, random re-inspection</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-failure-credentials-access" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-failure-credentials-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7: Credentials and access
+</figcaption>
+<div aria-describedby="tbl-failure-credentials-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 29%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Failure mode</th>
+<th style="text-align: left;">What the evidence establishes</th>
+<th style="text-align: left;">What remains unknown</th>
+<th style="text-align: left;">Complementary control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Compromised passkey</td>
+<td style="text-align: left;">None; a later signed compromise claim stands beside the history as a visible dispute</td>
+<td style="text-align: left;">A signature produced from a stolen or cloned credential</td>
+<td style="text-align: left;">Hardware-bound passkeys with user verification, device attestation, anomaly detection</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lost or unrecoverable key</td>
+<td style="text-align: left;">Earlier signatures stay valid; the organisation retires the key and issues a new one</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Key-loss procedures, identity re-proofing</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Restricted payload access</td>
+<td style="text-align: left;">Chain and signature checks still verify the history</td>
+<td style="text-align: left;">Content of payloads the holder cannot access</td>
+<td style="text-align: left;">Application access policy and retention of authorised supporting evidence</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-failure-physical-measurement" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-failure-physical-measurement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8: Physical measurement
+</figcaption>
+<div aria-describedby="tbl-failure-physical-measurement-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 29%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Failure mode</th>
+<th style="text-align: left;">What the evidence establishes</th>
+<th style="text-align: left;">What remains unknown</th>
+<th style="text-align: left;">Complementary control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sensor removed from the asset it monitors</td>
+<td style="text-align: left;">A CBC signed at installation by the technician and the sensor (<a href="how-it-works.html#sec-cbc" class="quarto-xref"><span>Cryptographically Bound Contracts</span></a>) records which sensor the technician fitted to which asset</td>
+<td style="text-align: left;">A removed sensor keeps signing valid readings, because the key is in the sensor and shows nothing about where the sensor is</td>
+<td style="text-align: left;">Physical tamper indicators and inspection</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sensor calibration drift</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Gradual measurement error within technically valid signatures</td>
+<td style="text-align: left;">Calibration schedules, reference comparisons</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-appendix-choosing" class="level2">
+<h2 class="anchored" data-anchor-id="sec-appendix-choosing">Choosing an Approach</h2>
+<p><a href="#tbl-solution-landscape" class="quarto-xref">Table&nbsp;<span>9</span></a> sets EventChain beside the other ways of keeping provenance. The approaches combine: an organisation might keep ERP audit trails internally, use EventChain for the evidence shared across organisations, and register heads in a SCITT service for public accountability.</p>
+<div id="tbl-solution-landscape" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-solution-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9: Approaches to provenance: when each fits and where it falls short
+</figcaption>
+<div aria-describedby="tbl-solution-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 26%">
+<col style="width: 27%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Approach</th>
+<th style="text-align: left;">Works well when</th>
+<th style="text-align: left;">Falls short when</th>
+<th style="text-align: left;">Adoption condition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Do nothing</td>
+<td style="text-align: left;">Single-party control, low stakes, short lifecycles, negligible dispute risk</td>
+<td style="text-align: left;">Multiple handoffs, regulatory scrutiny, or long-lived histories where reconstruction costs compound</td>
+<td style="text-align: left;">Risk exposure remains below the cost of any provenance system</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ERP audit trails</td>
+<td style="text-align: left;">All relevant parties share one system, or a dominant buyer mandates platform access</td>
+<td style="text-align: left;">Records must survive beyond the platform operator, or partners lack ERP access</td>
+<td style="text-align: left;">Organisational control spans the full lifecycle</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Document signing (e-signatures)</td>
+<td style="text-align: left;">Point-in-time attestation between known parties, such as contract execution or inspection sign-off</td>
+<td style="text-align: left;">Continuity matters, because signed documents do not chain into a verifiable sequence across several actors</td>
+<td style="text-align: left;">The proof need is a single moment</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Managed compliance portals</td>
+<td style="text-align: left;">Compliance requires a portal with public access and standardised data models</td>
+<td style="text-align: left;">The portal cannot produce independently verifiable evidence, or the history must outlive the platform vendor</td>
+<td style="text-align: left;">A single vendor can credibly serve the history’s full lifetime</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VC/DID credentials</td>
+<td style="text-align: left;">Interoperable identity claims across organisations, where selective disclosure and the subject’s control of its credentials matter</td>
+<td style="text-align: left;">The question is the order and integrity of events, which credentials do not carry</td>
+<td style="text-align: left;">Identity portability is the primary requirement</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterprise distributed ledger</td>
+<td style="text-align: left;">High-value, multi-party transactions that need shared state no single operator controls</td>
+<td style="text-align: left;">Consortium formation stalls, costs exclude smaller participants, or throughput requirements exceed consensus limits</td>
+<td style="text-align: left;">All parties can fund node infrastructure and governance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCITT transparency registry</td>
+<td style="text-align: left;">Public accountability for signed statements, with receipts that can travel with those statements</td>
+<td style="text-align: left;">Statement storage, discovery, and distribution need an implementation beyond the registry specification</td>
+<td style="text-align: left;">A transparency service exists and holders accept its verification keys and policies</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EventChain with an application layer</td>
+<td style="text-align: left;">Identified parties in different organisations need a long-lived history each can verify, including participants who cannot fund ledger infrastructure</td>
+<td style="text-align: left;">Strangers settle payments with one another, or one organisation controls the whole process and nobody outside needs to verify</td>
+<td style="text-align: left;">At least one party needs proof that survives beyond any single platform</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-appendix-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="sec-appendix-dependencies">Deployment Dependencies</h2>
+<p>The following tables list what a production deployment puts in place beyond the file and the verifier (<a href="open-protocol.html#sec-adoption-sequence" class="quarto-xref"><span>Bootstrapping</span></a>).</p>
+<div id="tbl-deployment-evidence" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-deployment-evidence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10: Evidence production and availability
+</figcaption>
+<div aria-describedby="tbl-deployment-evidence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dependency</th>
+<th style="text-align: left;">Owner</th>
+<th style="text-align: left;">Why it matters</th>
+<th style="text-align: left;">Risk if ignored</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hub (hosted or self-run)</td>
+<td style="text-align: left;">Hub service provider</td>
+<td style="text-align: left;">Appends entries, distributes the AOF, enforces payload access policy</td>
+<td style="text-align: left;">No chain creation or distribution</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Heartbeat publication</td>
+<td style="text-align: left;">Hub service provider</td>
+<td style="text-align: left;">Signs and publishes heartbeats at the topic’s agreed interval</td>
+<td style="text-align: left;">Holders cannot tell whether their copy is current</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Heartbeat-list preservation and accepted Hub keys</td>
+<td style="text-align: left;">Keeper of the heartbeat list</td>
+<td style="text-align: left;">Preserves every heartbeat; serves the same list and accepted Hub keys to everyone</td>
+<td style="text-align: left;">Holders cannot establish freshness or reliably detect a fork</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-deployment-identity-access" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-deployment-identity-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;11: Identity and access
+</figcaption>
+<div aria-describedby="tbl-deployment-identity-access-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dependency</th>
+<th style="text-align: left;">Owner</th>
+<th style="text-align: left;">Why it matters</th>
+<th style="text-align: left;">Risk if ignored</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Identity provider integration</td>
+<td style="text-align: left;">IT / Security</td>
+<td style="text-align: left;">Maps passkeys to verified personnel</td>
+<td style="text-align: left;">Unsigned or unattributable events</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Signer onboarding</td>
+<td style="text-align: left;">HR / IT</td>
+<td style="text-align: left;">Registers passkeys against identity</td>
+<td style="text-align: left;">Adoption stalls at first signing step</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Payload access policy</td>
+<td style="text-align: left;">Governance / Legal</td>
+<td style="text-align: left;">Controls authorised payload access</td>
+<td style="text-align: left;">Over-sharing or under-sharing halts rollout</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-deployment-application" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-deployment-application-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;12: Application decisions and use
+</figcaption>
+<div aria-describedby="tbl-deployment-application-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dependency</th>
+<th style="text-align: left;">Owner</th>
+<th style="text-align: left;">Why it matters</th>
+<th style="text-align: left;">Risk if ignored</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Business logic and event schema</td>
+<td style="text-align: left;">Domain / Engineering</td>
+<td style="text-align: left;">Defines which actions become evidence and what each entry records</td>
+<td style="text-align: left;">Unverifiable payloads</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Holder verifier access</td>
+<td style="text-align: left;">Holder IT</td>
+<td style="text-align: left;">Enables independent verification (<a href="how-it-works.html#tbl-verification-checks" class="quarto-xref">Table&nbsp;<span>4.3</span></a>)</td>
+<td style="text-align: left;">Proof exists but nobody checks it</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ERP/API webhook integration</td>
+<td style="text-align: left;">Engineering</td>
+<td style="text-align: left;">Connects evidence to existing workflows</td>
+<td style="text-align: left;">Manual data entry, adoption friction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Contractual verification clause</td>
+<td style="text-align: left;">Legal / Procurement</td>
+<td style="text-align: left;">Defines consequences of failed verification</td>
+<td style="text-align: left;">A failed verification carries no consequence</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-scitt2025" class="csl-entry" role="listitem">
+Birkholz, Henk, Antoine Delignat-Lavaud, Cédric Fournet, Yogesh Deshpande, and Steve Lasker. 2026. <em>An Architecture for Trustworthy and Transparent Digital Supply Chains</em>. RFC 9943. <a href="https://doi.org/10.17487/RFC9943">https://doi.org/10.17487/RFC9943</a>.
+</div>
+<div id="ref-trillian" class="csl-entry" role="listitem">
+Google. 2026. <em><span>Trillian</span>: General Transparency</em>. GitHub repository. <a href="https://github.com/google/trillian">https://github.com/google/trillian</a>.
+</div>
+<div id="ref-haberstornetta1991" class="csl-entry" role="listitem">
+Haber, Stuart, and W. Scott Stornetta. 1991. <span>“How to Time-Stamp a Digital Document.”</span> <em>Journal of Cryptology</em> 3 (2): 99–111. <a href="https://doi.org/10.1007/BF00196791">https://doi.org/10.1007/BF00196791</a>.
+</div>
+<div id="ref-rfc6962" class="csl-entry" role="listitem">
+Laurie, Ben, Adam Langley, and Emilia Kasper. 2013. <em>Certificate Transparency</em>. RFC 6962. <a href="https://doi.org/10.17487/RFC6962">https://doi.org/10.17487/RFC6962</a>.
+</div>
+<div id="ref-li2004sundr" class="csl-entry" role="listitem">
+Li, Jinyuan, Maxwell Krohn, David Mazières, and Dennis Shasha. 2004. <span>“Secure Untrusted Data Repository (<span>SUNDR</span>).”</span> <em>6th Symposium on Operating Systems Design and Implementation (OSDI)</em>, 121–36. <a href="https://www.usenix.org/legacy/event/osdi04/tech/full_papers/li_j/li_j.pdf">https://www.usenix.org/legacy/event/osdi04/tech/full_papers/li_j/li_j.pdf</a>.
+</div>
+<div id="ref-malik2019" class="csl-entry" role="listitem">
+Malik, Sidra, Volkan Dedeoglu, Salil S. Kanhere, and Raja Jurdak. 2019. <span>“<span>TrustChain</span>: Trust Management in Blockchain and <span>IoT</span> Supported Supply Chains.”</span> <em>IEEE International Conference on Blockchain</em>. <a href="https://doi.org/10.1109/Blockchain.2019.00032">https://doi.org/10.1109/Blockchain.2019.00032</a>.
+</div>
+<div id="ref-parakeet2023" class="csl-entry" role="listitem">
+Malvai, Harjasleen, Lefteris Kokoris-Kogias, Alberto Sonnino, et al. 2023. <span>“<span>Parakeet</span>: Practical Key Transparency for End-to-End Encrypted Messaging.”</span> <em>Network and Distributed System Security Symposium (NDSS)</em>. <a href="https://www.ndss-symposium.org/ndss-paper/parakeet-practical-key-transparency-for-end-to-end-encrypted-messaging/">https://www.ndss-symposium.org/ndss-paper/parakeet-practical-key-transparency-for-end-to-end-encrypted-messaging/</a>.
+</div>
+<div id="ref-keri2019" class="csl-entry" role="listitem">
+Smith, Samuel M. 2019. <em>Key Event Receipt Infrastructure (<span>KERI</span>)</em>. <a href="https://arxiv.org/abs/1907.02143">https://arxiv.org/abs/1907.02143</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/eventchain-protocol\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./appendix-specification.html" class="pagination-link" aria-label="Appendix: Specification">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Appendix: Specification</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="visuals.js"></script>
+
+
+
+
+</body></html>

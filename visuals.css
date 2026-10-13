@@ -1,0 +1,29 @@
+/* Preserve normal reading size; wide comparisons scroll within their captioned region. */
+main .references a {
+  overflow-wrap: anywhere;
+}
+main .quarto-float-tbl > div[aria-describedby] {
+  max-width: 100%;
+  overflow-x: auto;
+}
+main .quarto-float-tbl th,
+main .quarto-float-tbl td {
+  text-align: left;
+  vertical-align: top;
+}
+main .quarto-float-tbl table {
+  min-width: 36rem;
+}
+main .quarto-float-tbl > div[aria-describedby]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+main .quarto-float-tbl .table-scroll-hint {
+  font-size: .9rem;
+  margin-block: .25rem .5rem;
+}
+@media print {
+  main .quarto-float-tbl table { min-width: 0; }
+  main .quarto-float-tbl > div[aria-describedby] { overflow: visible; }
+  .table-scroll-hint { display: none; }
+}

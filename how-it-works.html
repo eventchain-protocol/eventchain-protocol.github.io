@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; How EventChain Works – EventChain: Consensus by Comparison</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./open-protocol.html" rel="next">
+<link href="./consensus-by-comparison.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<link rel="describedby" href="https://eventchain-protocol.github.io/llms.txt">
+
+
+<link rel="stylesheet" href="visuals.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./how-it-works.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+</div></div>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">EventChain: Consensus by Comparison</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/eventchain-protocol/eventchain-protocol.github.io" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./EventChain--Consensus-by-Comparison.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Executive Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the-provenance-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconciliation After the Fact</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus-by-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./how-it-works.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./open-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Open Protocol</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./use-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Worked Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Specification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-standards-positioning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Comparison Tables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-aof" id="toc-sec-aof" class="nav-link active" data-scroll-target="#sec-aof"><span class="header-section-number">4.1</span> Append-Only File</a></li>
+  <li><a href="#sec-payload-visibility" id="toc-sec-payload-visibility" class="nav-link" data-scroll-target="#sec-payload-visibility"><span class="header-section-number">4.2</span> Payload Hash</a></li>
+  <li><a href="#sec-identity-bound-signatures" id="toc-sec-identity-bound-signatures" class="nav-link" data-scroll-target="#sec-identity-bound-signatures"><span class="header-section-number">4.3</span> What a Signature Proves</a></li>
+  <li><a href="#sec-append-protocol" id="toc-sec-append-protocol" class="nav-link" data-scroll-target="#sec-append-protocol"><span class="header-section-number">4.4</span> Append Protocol</a>
+  <ul class="collapse">
+  <li><a href="#sec-hub-heartbeat" id="toc-sec-hub-heartbeat" class="nav-link" data-scroll-target="#sec-hub-heartbeat"><span class="header-section-number">4.4.1</span> Hub Heartbeat</a></li>
+  </ul></li>
+  <li><a href="#sec-scale-ordering" id="toc-sec-scale-ordering" class="nav-link" data-scroll-target="#sec-scale-ordering"><span class="header-section-number">4.5</span> Scale and Ordering</a></li>
+  <li><a href="#sec-cbc" id="toc-sec-cbc" class="nav-link" data-scroll-target="#sec-cbc"><span class="header-section-number">4.6</span> Cryptographically Bound Contracts</a></li>
+  <li><a href="#sec-rbac" id="toc-sec-rbac" class="nav-link" data-scroll-target="#sec-rbac"><span class="header-section-number">4.7</span> Access to Payloads</a></li>
+  <li><a href="#sec-ots-rollups" id="toc-sec-ots-rollups" class="nav-link" data-scroll-target="#sec-ots-rollups"><span class="header-section-number">4.8</span> OpenTimestamps</a></li>
+  <li><a href="#sec-offline-verification" id="toc-sec-offline-verification" class="nav-link" data-scroll-target="#sec-offline-verification"><span class="header-section-number">4.9</span> Verification</a>
+  <ul class="collapse">
+  <li><a href="#sec-recipient-requirements" id="toc-sec-recipient-requirements" class="nav-link" data-scroll-target="#sec-recipient-requirements"><span class="header-section-number">4.9.1</span> What Each Check Needs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-how-it-works" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 13, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Producers sign entries into an append-only file (AOF), a single Hub orders and distributes the file, and every holder verifies its own copy. A <em>topic</em> is one history (the events a deployment collects together in one AOF). Checking the chain and the producer signatures needs only the file and no trust in the Hub; naming the signer and confirming that a copy is current need further evidence (<a href="#sec-recipient-requirements" class="quarto-xref"><span>Section 4.9.1</span></a>). The byte-level rules an implementer needs are in the <a href="appendix-specification.html">Specification appendix</a>.</p>
+<section id="sec-aof" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-aof"><span class="header-section-number">4.1</span> Append-Only File</h2>
+<p>The AOF is a JSON Lines <span class="citation" data-cites="jsonlines">(<a href="references.html#ref-jsonlines" role="doc-biblioref">JSON Lines 2023</a>)</span> document, one JSON object per line. Each entry carries a salted hash of its payload, a locator for the payload, the SHA-256 hash of the previous line, the signer’s public key and an ECDSA-P256 signature over every other member (<a href="#tbl-aof-entry" class="quarto-xref">Table&nbsp;<span>4.1</span></a>, <a href="#fig-hash-chain" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>). Producers encrypt payloads before they reach the Hub, so the Hub holds or relays ciphertext only and never has plaintext or decryption keys.</p>
+<div id="tbl-aof-entry" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-aof-entry-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.1: Base-entry fields (revision-specific members are in the <a href="./appendix-specification.html#sec-entry-spec">entry specification</a>)
+</figcaption>
+<div aria-describedby="tbl-aof-entry-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Example</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>entry_id</code></td>
+<td style="text-align: left;"><code>evt-042</code></td>
+<td style="text-align: left;">Producer’s reference; arbitrary text that need not be unique</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>payload_hash</code></td>
+<td style="text-align: left;"><code>obPN0cqZ...</code></td>
+<td style="text-align: left;">Salted hash of the plaintext payload (<a href="#sec-payload-visibility" class="quarto-xref"><span>Section 4.2</span></a>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>payload_ref</code></td>
+<td style="text-align: left;"><code>ref-042</code></td>
+<td style="text-align: left;">Opaque locator for the payload</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>prev_hash</code></td>
+<td style="text-align: left;"><code>_-bFxIQ3...</code></td>
+<td style="text-align: left;">SHA-256 of previous line’s bytes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>public_key</code></td>
+<td style="text-align: left;"><code>Aw4rK2p1...</code></td>
+<td style="text-align: left;">Signer’s public key</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>signature</code></td>
+<td style="text-align: left;"><code>8QDxLmE7...</code></td>
+<td style="text-align: left;">ECDSA-P256 signature over <code>entry.data()</code> (<a href="./appendix-specification.html#sec-entry-spec">entry specification</a>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-hash-chain" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Producer-signature brackets cover prev_hash, payload_hash and other signed members of adjacent lines A and B. B references the hash of A's exact written bytes, excluding LF. Raw salt and exact plaintext, held outside the file, produce B's payload commitment.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hash-chain-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="visuals/producer-signature-chain-binding.svg" class="img-fluid figure-img" alt="Producer-signature brackets cover prev_hash, payload_hash and other signed members of adjacent lines A and B. B references the hash of A's exact written bytes, excluding LF. Raw salt and exact plaintext, held outside the file, produce B's payload commitment." width="360">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hash-chain-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: The producer signs the predecessor hash as well as the payload commitment. Moving line B to another predecessor changes its signed input. Hash links alone do not authenticate the chain.
+</figcaption>
+</figure>
+</div>
+<p>Because the signature covers <code>prev_hash</code>, each producer signs its own position in the chain. Editing any line or moving an entry to a different predecessor invalidates a producer signature that the Hub cannot recreate, so the ordering guarantee rests on the producers’ keys. An entry’s unique identifier, its <em>Event ID</em>, is the SHA-256 hash of its exact written line, and later entries refer to earlier ones by it.</p>
+</section>
+<section id="sec-payload-visibility" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-payload-visibility"><span class="header-section-number">4.2</span> Payload Hash</h2>
+<p><code>payload_hash</code> is <code>SHA-256(salt ‖ payload)</code> over a fresh random salt followed by the exact plaintext bytes. Nobody without the salt can test guesses against the hash, and whoever holds the plaintext and the salt can recompute it, so each holder keeps the salt with the payload. The AOF names no signer, only a public key; the signer’s identity and role sit in the payload under access policy (<a href="#sec-rbac" class="quarto-xref"><span>Section 4.7</span></a>).</p>
+</section>
+<section id="sec-identity-bound-signatures" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-identity-bound-signatures"><span class="header-section-number">4.3</span> What a Signature Proves</h2>
+<p>A device or a software service signs its entries directly: a sensor signs each measurement at source with a hardware-held key. A person’s passkey cannot sign arbitrary bytes, so the producing system signs the entry and the person confirms it in a separate <em>Mint</em> entry whose WebAuthn challenge is the confirmed entry’s Event ID (<a href="./appendix-specification.html#sec-spec-mint">WebAuthn checks</a>). In every case a valid signature proves that a key signed these bytes. What it proves about who acted depends on where the key lives (<a href="#tbl-key-binding" class="quarto-xref">Table&nbsp;<span>4.2</span></a>).</p>
+<div id="tbl-key-binding" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-key-binding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.2: What a valid signature proves for each kind of signer
+</figcaption>
+<div aria-describedby="tbl-key-binding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Signer</th>
+<th style="text-align: left;">Where the key lives</th>
+<th style="text-align: left;">What a valid signature proves</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Device</td>
+<td style="text-align: left;">TPM, physically unclonable function (PUF) or secure element</td>
+<td style="text-align: left;">This key signed these bytes. Binding the key to a particular device rests on enrolment or attestation evidence and on the key’s actual protection; the signature shows nothing about calibration, attachment or the measurement path</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Software service</td>
+<td style="text-align: left;">Cloud key-management service</td>
+<td style="text-align: left;">Something able to use the key signed. The file does not say which workload, person or administrator caused the signature</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Software in an attested enclave</td>
+<td style="text-align: left;">Enclave bound to measured code</td>
+<td style="text-align: left;">Under the platform’s attestation assumptions, the key belongs to the measured code. A model counts only if the validated measurement covers it</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person</td>
+<td style="text-align: left;">Passkey</td>
+<td style="text-align: left;">The passkey answered this challenge with the checked flags. Naming the person and role rests on enrolment evidence and passkey-control policy</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A <em>registry</em> binds each public key to a person, device, service or role, with the enrolment evidence behind the binding. A registry is a topic like any other, and a holder verifies it with the same checks. It cannot write, reorder or block an entry in any other topic. A binding that others rely on carries two signatures, the subject’s offer and the registry keeper’s acceptance (<a href="./appendix-specification.html#sec-spec-registry">registry conventions</a>, three of them still open), so neither party creates it alone. An organisation keeps a registry for its own signers. An authority or community keeps one that binds each organisation’s root key to its legal identity. Each topic declares the registries it accepts, by root key directly or through a binding in a registry it already accepts. It changes that declaration only with its other parties’ countersignature, because otherwise the party that started the topic could swap registries and re-attribute past signatures. The chain of registries ends at a root key that the parties accept outside the protocol, as a browser accepts its root store <span class="citation" data-cites="rfc6024">(<a href="references.html#ref-rfc6024" role="doc-biblioref">Reddy and Wallace 2010</a>)</span>. A binding shows whom its keeper says a key belongs to.</p>
+<p>A signature carries no ongoing authority and no time, so a departed employee’s earlier signatures stay valid. A lost key leaves the chain intact: the keeper retires it and the organisation enrols a new one. A compromised key differs, because someone else may sign with it. The keeper therefore signs a compromise claim that names the time from which the key is suspect, and the claim stands beside the history as a visible dispute that erases nothing. The verifier reports each entry the key signed between that time and the claim as inside the claimed window, and the application decides. The order between a registry entry and an entry in another topic is only as fine as the positions that the Hub’s signed heartbeats and the Bitcoin anchors cover (<a href="#sec-hub-heartbeat" class="quarto-xref"><span>Section 4.4.1</span></a>, <a href="#sec-ots-rollups" class="quarto-xref"><span>Section 4.8</span></a>), because no shared clock orders the two topics. The verifier reports signature validity, binding evidence, compromise status and authorisation separately.</p>
+</section>
+<section id="sec-append-protocol" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="sec-append-protocol"><span class="header-section-number">4.4</span> Append Protocol</h2>
+<p>The <em>head</em> is the hash of the last line in the chain. A producer keeps the head it last appended or observed (its <em>retained head</em>) and submits against a verified <em>expected head</em>. Because the signature covers <code>prev_hash</code>, changing that field requires signing again.</p>
+<ol type="1">
+<li>The producer requests the current head and any entries since its retained head. It accepts a matching head with no new entries, or verifies an extension to the new head. If the Hub supplies a history that omits the retained head, the producer treats it as evidence of rollback or truncation and does not sign against it.</li>
+<li>The producer sets <code>prev_hash</code> to the verified current head, signs the entry and submits it with that expected head.</li>
+<li>The Hub accepts the entry only if its current head still matches the expected head. After the append, the producer retains the new head.</li>
+<li>If another entry arrived first, the Hub rejects the submission. The producer obtains and verifies the new extension, updates <code>prev_hash</code> to the new head, signs the entry again and resubmits against that head.</li>
+</ol>
+<p>The Hub applies to each submission exactly the checks a verifier applies to one line: the line is well formed under the <a href="./appendix-specification.html#sec-entry-spec">entry specification</a>, <code>prev_hash</code> equals the current head, and the key on the line signed it. It appends every submission that passes, whatever the entry says and whoever holds the key, and judges nothing else; a false statement or an unbound key enters the history, where the verifier reports it and the other parties contest it (<a href="#sec-cbc" class="quarto-xref"><span>Section 4.6</span></a>). A submission that fails receives a signed refusal naming the submission hash, the reason and the Hub’s asserted time, which the submitter retains, so a refusal of a valid line is evidence against the Hub.</p>
+<p>A valid chain can still be an old prefix, so the protocol requires the Hub to publish signed <em>heartbeats</em> to the heartbeat list. Every holder, including a first-time one, retrieves the latest heartbeat for its topic and checks its copy against it, and so detects an out-of-date copy or a diverging history without contacting other holders. Two conflicting heartbeats under the Hub’s key attribute the fork to the Hub. These are the established properties of fork consistency <span class="citation" data-cites="li2004sundr">(<a href="references.html#ref-li2004sundr" role="doc-biblioref">Li et al. 2004</a>)</span> and accountability <span class="citation" data-cites="rfc6962">(<a href="references.html#ref-rfc6962" role="doc-biblioref">Laurie et al. 2013</a>)</span>. The publication interval bounds freshness, and the list must preserve every heartbeat and show everyone the same list.</p>
+<section id="sec-hub-heartbeat" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="sec-hub-heartbeat"><span class="header-section-number">4.4.1</span> Hub Heartbeat</h3>
+<p>A heartbeat carries the topic’s head, the entry count and the time of issue under the Hub’s signature. The Hub publishes one at the agreed interval even when no entries arrive. The keeper of the heartbeat list preserves every heartbeat for each topic and publishes the Hub key the topic accepts; <a href="open-protocol.html#sec-stewardship" class="quarto-xref"><span>Section 5.1</span></a> proposes who that keeper should be. Every holder compares its own copy with that common reference (<a href="#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>). The time is the Hub’s own assertion; independent timestamping can add external time evidence (<a href="#sec-ots-rollups" class="quarto-xref"><span>Section 4.8</span></a>). <a href="appendix-specification.html#sec-spec-heartbeat">Heartbeat Encoding and Retrieval</a> specifies the format and retrieval.</p>
+<p>Suppose the Hub serves different histories to the buyer and warehouse in the dispatch application (<a href="the-provenance-problem.html#fig-delivery-reconciliation" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>). Both copies pass their chain and producer-signature checks, but they contain different hashes at the same position. The warehouse detects the disagreement by comparing its hash with the common checkpoint (<a href="#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>), without contacting the buyer.</p>
+<div class="cell" data-fig-width="4.5" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-heartbeat-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heartbeat-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-heartbeat-comparison">%%{init: {"flowchart": {"nodeSpacing": 15, "rankSpacing": 30, "padding": 8}}}%%
+flowchart TB
+    H["Hub"]
+    B["Buyer's copy&lt;br/&gt;… → hash A"]
+    W["Warehouse's copy&lt;br/&gt;… → hash B"]
+    P["Common published list&lt;br/&gt;Hub-signed checkpoint&lt;br/&gt;hash A"]
+    H --&gt;|"Serves one&lt;br/&gt;history"| B
+    H --&gt;|"Serves another&lt;br/&gt;history"| W
+    H --&gt;|"Publishes its&lt;br/&gt;commitment"| P
+    P -.-&gt;|"A matches A"| B
+    P -.-&gt;|"B differs from A"| W
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heartbeat-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Different hashes at the same position cannot both match one published checkpoint. A and B stand for those hashes in the same topic. A conflicting copy alone does not attribute a fork to the Hub; that requires conflicting Hub-signed checkpoints.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The comparison requires a sufficiently current heartbeat authenticated under the accepted Hub key, from the same preserved list for everyone. A match covers only the prefix through the published position; later entries remain outside that checkpoint’s coverage. A copy that ends before that position lacks part of the published history. A stale heartbeat cannot establish whether the holder’s copy is current.</p>
+</section>
+</section>
+<section id="sec-scale-ordering" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sec-scale-ordering"><span class="header-section-number">4.5</span> Scale and Ordering</h2>
+<p>The Hub appends on a single thread per topic, so each topic has one ordered history and different topics proceed independently. Each accepted entry costs one append and no multi-party consensus round. A holder that keeps a verified prefix verifies only the extension; <a href="consensus-by-comparison.html#sec-what-it-costs" class="quarto-xref"><span>Section 3.2</span></a> gives the measured rates.</p>
+</section>
+<section id="sec-cbc" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="sec-cbc"><span class="header-section-number">4.6</span> Cryptographically Bound Contracts</h2>
+<p>A Cryptographically Bound Contract (CBC) records a two-party agreement as two entries: the offering party signs an offer, and the accepting party signs an acceptance that names the offer by its Event ID (<a href="./appendix-specification.html#sec-spec-cbc">CBC references</a>). A custody transfer is one instance; a supplier’s acceptance of shared data under agreed terms is another (<a href="./use-cases.html#sec-ai-data-sharing">worked example</a>). Until the acceptance exists the CBC is <em>pending</em>, and any party inspecting the chain sees the missing acceptance.</p>
+<p>A correction, an objection or a resolution is likewise a new signed entry that names the entry it addresses (<a href="./appendix-specification.html#sec-corrections">correction references</a>). The original stays in the chain, no later statement overrides it automatically, and application policy decides who may make each kind of statement.</p>
+</section>
+<section id="sec-rbac" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="sec-rbac"><span class="header-section-number">4.7</span> Access to Payloads</h2>
+<p>Applications decide which holders may retrieve and decrypt each payload, and a Hub or storage service can enforce that without holding decryption keys. A regulator may read every payload while a customer reads only those under its contract, yet both hold the same AOF and run the same checks on it (<a href="./appendix-specification.html#sec-spec-payload">payload access and export</a>). An application the parties authorise can act on the evidence as soon as it meets the application’s rules, with no person checking each step again.</p>
+</section>
+<section id="sec-ots-rollups" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="sec-ots-rollups"><span class="header-section-number">4.8</span> OpenTimestamps</h2>
+<p>An optional daily OpenTimestamps (OTS) rollup anchors the current chain head in Bitcoin, which shows that the committed bytes existed before the time of a validated anchor <span class="citation" data-cites="opentimestamps todd2016ots">(<a href="references.html#ref-opentimestamps" role="doc-biblioref">OpenTimestamps 2026</a>; <a href="references.html#ref-todd2016ots" role="doc-biblioref">Todd 2016</a>)</span>. That evidence relies on the Bitcoin network and on validation of the proof, independent of the Hub, and does not show when the events occurred. A Hub can anchor both branches of a fork, so OTS protects against neither split views nor stale copies.</p>
+</section>
+<section id="sec-offline-verification" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="sec-offline-verification"><span class="header-section-number">4.9</span> Verification</h2>
+<p>The verifier reports separate conclusions about a history (<a href="#tbl-verification-checks" class="quarto-xref">Table&nbsp;<span>4.3</span></a>). A holder can check its chain and signatures without payload access, and can validate an external time proof without the plaintext. Hash links alone authenticate nothing; producer signatures authenticate the history.</p>
+<section id="sec-recipient-requirements" class="level3" data-number="4.9.1">
+<h3 data-number="4.9.1" class="anchored" data-anchor-id="sec-recipient-requirements"><span class="header-section-number">4.9.1</span> What Each Check Needs</h3>
+<div id="tbl-verification-checks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verification-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.3: Evidence each verification check needs and what it establishes
+</figcaption>
+<div aria-describedby="tbl-verification-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Independent check</th>
+<th style="text-align: left;">Evidence beside the AOF</th>
+<th style="text-align: left;">Check and result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chain and producer signatures</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Check predecessor hashes and signatures: each entry binds to its predecessor and each signature verifies under the key embedded in it. Hash links alone authenticate nothing.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Named attribution</td>
+<td style="text-align: left;">Enrolment and compromise/dispute evidence</td>
+<td style="text-align: left;">Report key validity, identity binding and dispute status separately (<a href="#tbl-key-binding" class="quarto-xref">Table&nbsp;<span>4.2</span></a>).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Freshness and shared history</td>
+<td style="text-align: left;">Accepted Hub key, publication settings, authenticated common-list heartbeat</td>
+<td style="text-align: left;">Compare the covered-position hash; report match or deficiency (<a href="#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>). The heartbeat covers only that prefix.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Payload commitment</td>
+<td style="text-align: left;">Exact plaintext and retained salt</td>
+<td style="text-align: left;">Hash raw salt bytes followed by exact plaintext bytes. A match shows that these are the bytes the entry committed to.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">External time (optional)</td>
+<td style="text-align: left;">Complete OTS proof and validation context; no plaintext</td>
+<td style="text-align: left;">Validate proof and coverage: existence before anchor time, not event time (<a href="#sec-ots-rollups" class="quarto-xref"><span>Section 4.8</span></a>).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The application decides whether the evidence suffices and whether the signer had authority to act. If heartbeat evidence is missing, stale or conflicting, it pauses dependent actions for the topic, keeps capturing and queuing events locally, and escalates (<a href="./appendix-specification.html#sec-spec-outcomes">heartbeat outcomes</a>).</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-jsonlines" class="csl-entry" role="listitem">
+JSON Lines. 2023. <em><span>JSON</span> Lines</em>. <a href="https://jsonlines.org/" class="uri">Https://jsonlines.org/</a>.
+</div>
+<div id="ref-rfc6962" class="csl-entry" role="listitem">
+Laurie, Ben, Adam Langley, and Emilia Kasper. 2013. <em>Certificate Transparency</em>. RFC 6962. <a href="https://doi.org/10.17487/RFC6962">https://doi.org/10.17487/RFC6962</a>.
+</div>
+<div id="ref-li2004sundr" class="csl-entry" role="listitem">
+Li, Jinyuan, Maxwell Krohn, David Mazières, and Dennis Shasha. 2004. <span>“Secure Untrusted Data Repository (<span>SUNDR</span>).”</span> <em>6th Symposium on Operating Systems Design and Implementation (OSDI)</em>, 121–36. <a href="https://www.usenix.org/legacy/event/osdi04/tech/full_papers/li_j/li_j.pdf">https://www.usenix.org/legacy/event/osdi04/tech/full_papers/li_j/li_j.pdf</a>.
+</div>
+<div id="ref-opentimestamps" class="csl-entry" role="listitem">
+OpenTimestamps. 2026. <em><span>OpenTimestamps</span>: A Timestamping Proof Standard</em>. <a href="https://opentimestamps.org/">https://opentimestamps.org/</a>.
+</div>
+<div id="ref-rfc6024" class="csl-entry" role="listitem">
+Reddy, Raksha, and Carl Wallace. 2010. <em>Trust Anchor Management Requirements</em>. RFC 6024. <a href="https://doi.org/10.17487/RFC6024">https://doi.org/10.17487/RFC6024</a>.
+</div>
+<div id="ref-todd2016ots" class="csl-entry" role="listitem">
+Todd, Peter. 2016. <em><span>OpenTimestamps</span>: Scalable, Trust-Minimized, Distributed Timestamping with Bitcoin</em>. <a href="https://petertodd.org/2016/opentimestamps-announcement">https://petertodd.org/2016/opentimestamps-announcement</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/eventchain-protocol\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./consensus-by-comparison.html" class="pagination-link" aria-label="Consensus by Comparison">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./open-protocol.html" class="pagination-link" aria-label="Open Protocol">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Open Protocol</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="visuals.js"></script>
+
+
+
+
+</body></html>

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Consensus by Comparison – EventChain: Consensus by Comparison</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./how-it-works.html" rel="next">
+<link href="./the-provenance-problem.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<link rel="describedby" href="https://eventchain-protocol.github.io/llms.txt">
+
+
+<link rel="stylesheet" href="visuals.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./consensus-by-comparison.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+</div></div>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">EventChain: Consensus by Comparison</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/eventchain-protocol/eventchain-protocol.github.io" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./EventChain--Consensus-by-Comparison.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Executive Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the-provenance-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconciliation After the Fact</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus-by-comparison.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./how-it-works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./open-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Open Protocol</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./use-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Worked Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Specification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-standards-positioning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Comparison Tables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-what-you-get" id="toc-sec-what-you-get" class="nav-link active" data-scroll-target="#sec-what-you-get"><span class="header-section-number">3.1</span> What You Get</a></li>
+  <li><a href="#sec-what-it-costs" id="toc-sec-what-it-costs" class="nav-link" data-scroll-target="#sec-what-it-costs"><span class="header-section-number">3.2</span> What It Costs</a></li>
+  <li><a href="#sec-what-remains-trusted" id="toc-sec-what-remains-trusted" class="nav-link" data-scroll-target="#sec-what-remains-trusted"><span class="header-section-number">3.3</span> What Remains Trusted</a></li>
+  <li><a href="#sec-failure-modes" id="toc-sec-failure-modes" class="nav-link" data-scroll-target="#sec-failure-modes"><span class="header-section-number">3.4</span> Where It Breaks</a></li>
+  <li><a href="#sec-choosing-approach" id="toc-sec-choosing-approach" class="nav-link" data-scroll-target="#sec-choosing-approach"><span class="header-section-number">3.5</span> When It Fits</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-consensus-by-comparison" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 13, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The members of a ledger agree on the history before each append, by a round of votes among everyone present. The holders of an EventChain history agree after the append, each by comparing its copy with one line the Hub has signed and published (a <em>heartbeat</em>), and nobody has to be present. Both routes end in the same state: every party holds one history, and each knows that any other party checking against the same heartbeat finds the same history through the entry it covers. Because each holder applies the same rules to an identical copy, each reaches the same verdict on whether an entry follows them; only the payload check depends on what each holder may read (<a href="how-it-works.html#sec-rbac" class="quarto-xref"><span>Section 4.7</span></a>). That state is what consensus guarantees, and this paper uses the word for the guarantee. In the same way, a history with two or more holders is a distributed ledger in which the parties hold the copies and one Hub sets the order: many producers write, one Hub orders each topic, holders read, and no holder’s check depends on another holder.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This chapter says “a ledger” for the kind that votes, and a history with one holder is a signed log. The two routes differ in when the agreement happens and who has to be present. The costs and limits of each route follow from that difference.</p>
+<section id="sec-what-you-get" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-what-you-get"><span class="header-section-number">3.1</span> What You Get</h2>
+<p>EventChain gives six of the eight guarantees people seek from a ledger without a round of votes, each under an assumption that <a href="#tbl-guarantees" class="quarto-xref">Table&nbsp;<span>3.1</span></a> names, and leaves the other two to contract and to other layers.</p>
+<div id="tbl-guarantees" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-guarantees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Ledger guarantees and where EventChain gets them
+</figcaption>
+<div aria-describedby="tbl-guarantees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Guarantee</th>
+<th style="text-align: left;">A ledger gets it from</th>
+<th style="text-align: left;">EventChain gets it from</th>
+<th style="text-align: left;">What remains assumed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">One history that every party holds and agrees on through the latest committed or published entry</td>
+<td style="text-align: left;">A round of votes before each append</td>
+<td style="text-align: left;">Each holder compares its copy with the latest Hub-signed heartbeat (<a href="how-it-works.html#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>)</td>
+<td style="text-align: left;">Keeper preserves every heartbeat and serves everyone the same list (<a href="open-protocol.html#sec-stewardship" class="quarto-xref"><span>Section 5.1</span></a>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nobody can rewrite an entry unnoticed</td>
+<td style="text-align: left;">Every replica validating every block again</td>
+<td style="text-align: left;">Each producer signing its entry over the hash of the entry before it (<a href="how-it-works.html#sec-aof" class="quarto-xref"><span>Section 4.1</span></a>)</td>
+<td style="text-align: left;">Holders run the verifier</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Events keep their order</td>
+<td style="text-align: left;">The same round</td>
+<td style="text-align: left;">One Hub thread appending in sequence, each signature fixing its entry’s position (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>)</td>
+<td style="text-align: left;">The Hub decides which of two competing submissions goes first</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Who made each statement</td>
+<td style="text-align: left;">Organisation certificates or wallet addresses</td>
+<td style="text-align: left;">A key per signer: a person’s passkey, a device’s hardware key or a service’s key (<a href="how-it-works.html#tbl-key-binding" class="quarto-xref">Table&nbsp;<span>4.2</span></a>)</td>
+<td style="text-align: left;">The enrolment evidence that binds the key to a party, and the registry root key that the parties accept outside the protocol (<a href="how-it-works.html#sec-identity-bound-signatures" class="quarto-xref"><span>Section 4.3</span></a>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Verification without the operator</td>
+<td style="text-align: left;">Running a node</td>
+<td style="text-align: left;">Running the open verifier on the file, offline (<a href="how-it-works.html#sec-offline-verification" class="quarto-xref"><span>Section 4.9</span></a>)</td>
+<td style="text-align: left;">A correct verifier, whose source anyone can read</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time</td>
+<td style="text-align: left;">Block timestamps</td>
+<td style="text-align: left;">The Hub’s asserted time, and an optional anchor in Bitcoin (<a href="how-it-works.html#sec-ots-rollups" class="quarto-xref"><span>Section 4.8</span></a>)</td>
+<td style="text-align: left;">The Hub’s clock; for the anchor, the Bitcoin network. Neither dates the event itself</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nobody can block a writer</td>
+<td style="text-align: left;">Open membership and many validators</td>
+<td style="text-align: left;">Not supplied: a Hub can refuse an append; a producer retains signed evidence of its attempted submission (<a href="./appendix-standards-positioning.html#sec-adversarial-hub">adversarial Hub analysis</a>)</td>
+<td style="text-align: left;">Hub availability and acceptance remain contractual duties</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Settlement among strangers</td>
+<td style="text-align: left;">A round of votes on balances</td>
+<td style="text-align: left;">Not supplied: ownership and balances belong to an application or ledger (<a href="#sec-choosing-approach" class="quarto-xref"><span>Section 3.5</span></a>)</td>
+<td style="text-align: left;">Each party answers for what it signs</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The history is a text file that anyone can check with SHA-256 and ECDSA-P256, so the evidence outlives the platform that produced it.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Every holder verifies every entry of its history, including entries whose payloads access policy keeps from it (<a href="how-it-works.html#sec-rbac" class="quarto-xref"><span>Section 4.7</span></a>). A gap in the chain or a copy shorter than the latest heartbeat shows that entries are missing, so a holder notices when a history leaves out inconvenient entries.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="sec-what-it-costs" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-what-it-costs"><span class="header-section-number">3.2</span> What It Costs</h2>
+<p>Because nobody has to be present at the append, an append is one write, and the work of recording grows with the number of events and with nothing else. Picture an electricity supplier with 10,000 meters, each signing a reading every fifteen minutes (<a href="./use-cases.html#sec-rec-attestation">worked example</a>): 960,000 entries a day, about eleven a second. Whether the supplier can keep that history depends on whether the work grows with the number of events or with the number of parties who hold the history. On a ledger it grows with both.</p>
+<p>In 2018, Hyperledger Fabric’s authors at IBM Research reported more than 3,500 transactions a second for a payment workload with five peers in one data centre, falling to between 1,400 and 2,000 with 100 peers across five data centres, every peer holding the whole ledger <span class="citation" data-cites="androulaki2018">(<a href="references.html#ref-androulaki2018" role="doc-biblioref">Androulaki et al. 2018</a>)</span>. The whole Ethereum network processed 3.6 million transactions on 28 April 2026, its busiest day up to October 2026 <span class="citation" data-cites="etherscan2026">(<a href="references.html#ref-etherscan2026" role="doc-biblioref">Etherscan 2026</a>)</span>; this one supplier’s readings would equal a quarter of that day. A consortium ledger recovers its costs from its users: in 2021, TradeLens listed its service from $8 per container <span class="citation" data-cites="tradelens2021pricing">(<a href="references.html#ref-tradelens2021pricing" role="doc-biblioref">TradeLens 2021</a>)</span>.</p>
+<p>Suppose another logistics company joins a shipment process. <a href="#fig-cost-architecture" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> follows the carrier’s signed acceptance: the company joins the consortium ledger as a validating member, or receives the EventChain history as a holder.</p>
+<div class="cell" data-fig-width="3.2" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-cost-architecture" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cost-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-cost-architecture">flowchart TB
+    subgraph L["Ledger: new validator"]
+        direction TB
+        A["Carrier's signed&lt;br/&gt;acceptance"] --&gt; V["Round of votes"]
+        N["New company's&lt;br/&gt;validator"] --&gt; V
+        V --&gt; R["Ledger commits&lt;br/&gt;the acceptance"]
+    end
+    subgraph E["EventChain: new holder"]
+        direction TB
+        B["Carrier's signed&lt;br/&gt;acceptance"] --&gt; H["Hub appends&lt;br/&gt;the entry"]
+        H --&gt; C["New company receives&lt;br/&gt;and verifies its copy"]
+    end
+    L ~~~ E
+    style L fill:transparent,stroke:currentColor
+    style E fill:transparent,stroke:currentColor
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cost-architecture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: A new validator participates before ledger commitment; a new EventChain holder receives and checks its copy after append. The arrows show dependencies, not elapsed time.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A ledger can also serve read-only users without adding validators, and consensus need not wait for every member’s vote. Adding an EventChain holder adds one copy of the file and that holder’s own checks; existing holders do not repeat verification for it. The application’s business rules still apply: if dispatch requires the new company’s acceptance, the smart contract waits for it (<a href="the-provenance-problem.html#fig-delivery-reconciliation" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>).</p>
+<p>In the author’s runs the reference Hub accepted more than 10,000 appends a second on one thread per topic (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>). Each holder receives one line of about 335 bytes per event and verifies its copy on its own processor at its own pace. A holder that verified yesterday’s copy checks only today’s new entries. No fee attaches to an event. These measurements describe different workloads and environments: observed Ethereum traffic is not network capacity, and the figures are not a comparative throughput benchmark.</p>
+<p>Producers that write into one topic race for its head, because each signs over the head it last verified and the Hub keeps the first submission to arrive (<a href="how-it-works.html#sec-append-protocol" class="quarto-xref"><span>Section 4.4</span></a>). The author measured that race on 13 October 2026, on one laptop, with the reference producer and a Hub model that checks the head only <span class="citation" data-cites="eventchain2026contention">(<a href="references.html#ref-eventchain2026contention" role="doc-biblioref">EventChain 2026b</a>)</span>. The topic committed 43,000 to 45,000 entries a second with no delay in flight, whatever the number of producers, because the head is one place; the rate falls as the round trip lengthens, to 4,300 to 4,400 a second at 200 microseconds and 46 to 48 at 20 milliseconds, within 5 per cent of what the append rule predicts once any delay is present. A producer that loses a race signs the same event again, at about 22 microseconds a signature, and nothing else happens: a rejected submission writes nothing, so the file never grows by more than one line per accepted entry, and the Hub’s rate, the file and the holders’ checks stay as they were. Races occur when several events reach the Hub within one producer’s round trip. With twelve producers and no delay in flight, 300 events a second cost 1.2 signatures per committed entry and 3,000 a second cost 2.3; when all twelve submit as fast as they can, each committed entry costs one signature from every producer racing for it. The supplier’s eleven readings a second sit far below the lowest rate the measurement offered. The append rule has no fairness property: with twelve producers saturating the topic at 20 milliseconds in flight, one producer committed nothing in a two-second window. A process that puts many fast producers into one topic can give them topics of their own, because topics proceed independently (<a href="how-it-works.html#sec-scale-ordering" class="quarto-xref"><span>Section 4.5</span></a>).</p>
+<p><a href="#tbl-scale-example" class="quarto-xref">Table&nbsp;<span>3.2</span></a> applies these figures to the supplier.</p>
+<div id="tbl-scale-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scale-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.2: Fleet arithmetic: 10,000 meters, one reading every fifteen minutes (960,000 entries a day, about eleven a second)
+</figcaption>
+<div aria-describedby="tbl-scale-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">Figure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hub-thread utilisation at 10,000 appends a second</td>
+<td style="text-align: left;">About one part in 900; reference-Hub rate from the author’s runs</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">File growth per holder</td>
+<td style="text-align: left;">About 320 MB a day</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Verification time per holder, on one laptop core</td>
+<td style="text-align: left;">About 40 seconds per day of entries; October 2026 benchmark of 42 seconds per million entries <span class="citation" data-cites="eventchain2026verifier">(<a href="references.html#ref-eventchain2026verifier" role="doc-biblioref">EventChain 2026a</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The same arithmetic covers every photograph behind an insurance claim (<a href="./use-cases.html#sec-claim-evidence">worked example</a>), because the file carries a fingerprint of each photograph and never the photograph itself (<a href="how-it-works.html#sec-payload-visibility" class="quarto-xref"><span>Section 4.2</span></a>). The cost that grows with volume is each holder’s storage, about 117 GB a year at this supplier’s rate.</p>
+<p>Some work costs the same with a ledger or with EventChain: a deployment still pays to integrate existing systems and to enrol signers. Ledger consortia carried one more item: those that closed in 2022 and 2023 named reaching critical mass as what consumed the money (<a href="the-provenance-problem.html#sec-ledger-generation" class="quarto-xref"><span>Section 2.3.1</span></a>). EventChain has no such item, because one organisation can start and the others take the evidence when they need it.</p>
+</section>
+<section id="sec-what-remains-trusted" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-what-remains-trusted"><span class="header-section-number">3.3</span> What Remains Trusted</h2>
+<p>Beyond the file and a verifier, a holder depends only on what the last column of <a href="#tbl-guarantees" class="quarto-xref">Table&nbsp;<span>3.1</span></a> names, chiefly the enrolment evidence behind each key, the keeper of the heartbeat list and the Hub’s availability to accept new entries. The Hub cannot rewrite a signed entry. It can withhold entries from a holder or show different holders different histories; <a href="how-it-works.html#fig-heartbeat-comparison" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> shows how a holder checks against the latest heartbeat. Two conflicting heartbeats under the Hub’s key attribute the fork to the Hub. The field calls these properties fork consistency and accountability (<a href="how-it-works.html#sec-append-protocol" class="quarto-xref"><span>Section 4.4</span></a>; <a href="./appendix-standards-positioning.html#sec-adversarial-hub">adversarial Hub analysis</a>). Deciding what to do with the evidence stays with the application. EventChain does not prevent a false entry at the moment of creation; it makes later denial and editing unattractive, because each entry names a signing key and binds its statement to the preceding history.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> <a href="appendix-standards-positioning.html#tbl-trust-boundary" class="quarto-xref">Table&nbsp;<span>4</span></a> gives the boundary capability by capability.</p>
+</section>
+<section id="sec-failure-modes" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-failure-modes"><span class="header-section-number">3.4</span> Where It Breaks</h2>
+<p>A valid signature proves that a key signed these bytes. It cannot reveal an honest mistake, coercion, collusion or a signer who signs without reading. Process controls and audit remain necessary, and when something goes wrong they now start from a signed history and the identity evidence behind it (<a href="./appendix-standards-positioning.html#sec-appendix-failure-modes">failure-mode tables</a>).</p>
+</section>
+<section id="sec-choosing-approach" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-choosing-approach"><span class="header-section-number">3.5</span> When It Fits</h2>
+<p>EventChain fits where each party to a process answers for what it signs, and where at least one of them needs evidence that survives beyond any single platform. Because each party answers for what it signs, detection after the fact suffices. Because the evidence travels as a file, nobody has to join a network before the first entry is useful. Where strangers settle payments with one another, a ledger’s round of votes remains the right tool. Where one organisation controls the whole process and nobody outside needs to verify, an ordinary audit trail does. <a href="appendix-standards-positioning.html#tbl-solution-landscape" class="quarto-xref">Table&nbsp;<span>9</span></a> sets each approach beside the others.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-abadi2012pacelc" class="csl-entry" role="listitem">
+Abadi, Daniel J. 2012. <span>“Consistency Tradeoffs in Modern Distributed Database System Design: <span>CAP</span> Is Only Part of the Story.”</span> <em>Computer</em> 45 (2): 37–42. <a href="https://doi.org/10.1109/MC.2012.33">https://doi.org/10.1109/MC.2012.33</a>.
+</div>
+<div id="ref-androulaki2018" class="csl-entry" role="listitem">
+Androulaki, Elli, Artem Barger, Vita Bortnikov, et al. 2018. <span>“Hyperledger Fabric: A Distributed Operating System for Permissioned Blockchains.”</span> <em>Proceedings of the Thirteenth EuroSys Conference (EuroSys ’18)</em>. <a href="https://doi.org/10.1145/3190508.3190538">https://doi.org/10.1145/3190508.3190538</a>.
+</div>
+<div id="ref-scitt2025" class="csl-entry" role="listitem">
+Birkholz, Henk, Antoine Delignat-Lavaud, Cédric Fournet, Yogesh Deshpande, and Steve Lasker. 2026. <em>An Architecture for Trustworthy and Transparent Digital Supply Chains</em>. RFC 9943. <a href="https://doi.org/10.17487/RFC9943">https://doi.org/10.17487/RFC9943</a>.
+</div>
+<div id="ref-cooper2008pnuts" class="csl-entry" role="listitem">
+Cooper, Brian F., Raghu Ramakrishnan, Utkarsh Srivastava, et al. 2008. <span>“<span>PNUTS</span>: <span>Yahoo!</span>’s Hosted Data Serving Platform.”</span> <em>Proceedings of the VLDB Endowment</em> 1 (2): 1277–88. <a href="https://doi.org/10.14778/1454159.1454167">https://doi.org/10.14778/1454159.1454167</a>.
+</div>
+<div id="ref-etherscan2026" class="csl-entry" role="listitem">
+Etherscan. 2026. <em>Ethereum Daily Transactions Chart</em>. <a href="https://etherscan.io/chart/tx">https://etherscan.io/chart/tx</a>.
+</div>
+<div id="ref-eventchain2026verifier" class="csl-entry" role="listitem">
+EventChain. 2026a. <em>Minimal Actual-File Verifier Evidence</em>. Reproducible reference-implementation benchmark.
+</div>
+<div id="ref-eventchain2026contention" class="csl-entry" role="listitem">
+EventChain. 2026b. <em>Producer Contention: What Many Signers Racing for One Head Cost</em>. Reproducible reference-implementation benchmark.
+</div>
+<div id="ref-haberstornetta1991" class="csl-entry" role="listitem">
+Haber, Stuart, and W. Scott Stornetta. 1991. <span>“How to Time-Stamp a Digital Document.”</span> <em>Journal of Cryptology</em> 3 (2): 99–111. <a href="https://doi.org/10.1007/BF00196791">https://doi.org/10.1007/BF00196791</a>.
+</div>
+<div id="ref-parakeet2023" class="csl-entry" role="listitem">
+Malvai, Harjasleen, Lefteris Kokoris-Kogias, Alberto Sonnino, et al. 2023. <span>“<span>Parakeet</span>: Practical Key Transparency for End-to-End Encrypted Messaging.”</span> <em>Network and Distributed System Security Symposium (NDSS)</em>. <a href="https://www.ndss-symposium.org/ndss-paper/parakeet-practical-key-transparency-for-end-to-end-encrypted-messaging/">https://www.ndss-symposium.org/ndss-paper/parakeet-practical-key-transparency-for-end-to-end-encrypted-messaging/</a>.
+</div>
+<div id="ref-tradelens2021pricing" class="csl-entry" role="listitem">
+TradeLens. 2021. <em>Pricing</em>. <a href="https://www.tradelens.com/pricing">https://www.tradelens.com/pricing</a>.
+</div>
+<div id="ref-fda2018dataintegrity" class="csl-entry" role="listitem">
+U.S. Food and Drug Administration. 2018. <em>Data Integrity and Compliance with Drug <span>CGMP</span>: Questions and Answers, Guidance for Industry</em>. U.S. Food; Drug Administration. <a href="https://www.fda.gov/media/119267/download">https://www.fda.gov/media/119267/download</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>In the vocabulary of distributed systems, a topic is a single-writer replicated log (the Hub is the single appender; producers sign the entries it appends) with timeline consistency, the model of PNUTS, in which “all replicas of a given record apply all updates to the record in the same order” and a read returns a possibly stale version that “is always a valid one from the record’s history” <span class="citation" data-cites="cooper2008pnuts">(<a href="references.html#ref-cooper2008pnuts" role="doc-biblioref">Cooper et al. 2008</a>)</span>. Under PACELC <span class="citation" data-cites="abadi2012pacelc">(<a href="references.html#ref-abadi2012pacelc" role="doc-biblioref">Abadi 2012</a>)</span>, a topic chooses consistency over availability when partitioned, refusing to append against an unknown head or to act on evidence it cannot confirm, and latency over consistency otherwise, appending without waiting for holders; the heartbeat bounds undetected staleness to one publication interval while the heartbeat list stays reachable and preserves every heartbeat (<a href="open-protocol.html#sec-stewardship" class="quarto-xref"><span>Section 5.1</span></a>). Abadi classifies PNUTS the same way, PC/EL.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Hash-linked time-stamping showed that ordering and tamper-evidence come from chained commitments with no round of votes <span class="citation" data-cites="haberstornetta1991">(<a href="references.html#ref-haberstornetta1991" role="doc-biblioref">Haber and Stornetta 1991</a>)</span>. Registry-style transparency architectures such as SCITT leave statement storage and distribution to implementers <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026</a>)</span>; the file and the Hub fill that gap. The <a href="./appendix-standards-positioning.html#sec-standards-lineage">standards comparison</a> places them alongside earlier systems.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Parakeet frames a related pattern: public commitments, private querying and verifiable proof <span class="citation" data-cites="parakeet2023">(<a href="references.html#ref-parakeet2023" role="doc-biblioref">Malvai et al. 2023</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Transparency systems hold issuers accountable after publication <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026</a>)</span>. The US Food and Drug Administration’s data-integrity guidance rejects shared logins for the same reason: “a unique individual cannot be identified through the login” <span class="citation" data-cites="fda2018dataintegrity">(<a href="references.html#ref-fda2018dataintegrity" role="doc-biblioref">U.S. Food and Drug Administration 2018</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/eventchain-protocol\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./the-provenance-problem.html" class="pagination-link" aria-label="Reconciliation After the Fact">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconciliation After the Fact</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./how-it-works.html" class="pagination-link" aria-label="How EventChain Works">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="visuals.js"></script>
+
+
+
+
+</body></html>

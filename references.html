@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>References – EventChain: Consensus by Comparison</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./appendix-standards-positioning.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="describedby" href="https://eventchain-protocol.github.io/llms.txt">
+
+
+<link rel="stylesheet" href="visuals.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+</div></div>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">EventChain: Consensus by Comparison</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/eventchain-protocol/eventchain-protocol.github.io" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./EventChain--Consensus-by-Comparison.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Executive Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the-provenance-problem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Reconciliation After the Fact</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./consensus-by-comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Consensus by Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./how-it-works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How EventChain Works</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./open-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Open Protocol</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./use-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Worked Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Specification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-standards-positioning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendix: Comparison Tables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">References</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 13, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-abadi2012pacelc" class="csl-entry" role="listitem">
+Abadi, Daniel J. 2012. <span>“Consistency Tradeoffs in Modern
+Distributed Database System Design: <span>CAP</span> Is Only Part of the
+Story.”</span> <em>Computer</em> 45 (2): 37–42. <a href="https://doi.org/10.1109/MC.2012.33">https://doi.org/10.1109/MC.2012.33</a>.
+</div>
+<div id="ref-adgov2025digital" class="csl-entry" role="listitem">
+Abu Dhabi Government Media Office. 2025. <em>Abu Dhabi Government
+Launches Digital Strategy 2025–2027</em>. <a href="https://www.mediaoffice.abudhabi/en/government-affairs/abu-dhabi-government-launches-digital-strategy-2025-2027/">https://www.mediaoffice.abudhabi/en/government-affairs/abu-dhabi-government-launches-digital-strategy-2025-2027/</a>.
+</div>
+<div id="ref-accenture2022chess" class="csl-entry" role="listitem">
+Accenture. 2022. <em><span>ASX</span> <span>CHESS</span> Replacement
+Application Delivery Review</em>. Accenture, published by the Australian
+Securities; Investments Commission (Report 23-035). <a href="https://download.asic.gov.au/media/ku2aa1kz/23-035-asx-chess-replacement-application-delivery-review-2022.pdf">https://download.asic.gov.au/media/ku2aa1kz/23-035-asx-chess-replacement-application-delivery-review-2022.pdf</a>.
+</div>
+<div id="ref-androulaki2018" class="csl-entry" role="listitem">
+Androulaki, Elli, Artem Barger, Vita Bortnikov, et al. 2018.
+<span>“Hyperledger Fabric: A Distributed Operating System for
+Permissioned Blockchains.”</span> <em>Proceedings of the Thirteenth
+EuroSys Conference (EuroSys ’18)</em>. <a href="https://doi.org/10.1145/3190508.3190538">https://doi.org/10.1145/3190508.3190538</a>.
+</div>
+<div id="ref-maersk2022tradelens" class="csl-entry" role="listitem">
+A.P. Moller - Maersk. 2022. <em>A.p. Moller - Maersk and
+<span>IBM</span> to Discontinue <span>TradeLens</span>, a
+Blockchain-Enabled Global Trade Platform</em>. <a href="https://www.maersk.com/news/articles/2022/11/29/maersk-and-ibm-to-discontinue-tradelens">https://www.maersk.com/news/articles/2022/11/29/maersk-and-ibm-to-discontinue-tradelens</a>.
+</div>
+<div id="ref-ascribefarewell" class="csl-entry" role="listitem">
+<span class="nocase">ascribe team</span>. n.d. <em>Ascribe Is No Longer
+Active</em>. Accessed October 12, 2026. <a href="https://www.ascribe.io/">https://www.ascribe.io/</a>.
+</div>
+<div id="ref-asx2022chess" class="csl-entry" role="listitem">
+ASX Limited. 2022. <em><span>CHESS</span> Replacement: <span>ASX</span>
+Reassessing Solution Design and Financial Derecognition</em>. Market
+release, reproduced by Mondo Visione. <a href="https://mondovisione.com/media-and-resources/news/chess-replacement-asx-reassessing-financial-derecognition-20221117/">https://mondovisione.com/media-and-resources/news/chess-replacement-asx-reassessing-financial-derecognition-20221117/</a>.
+</div>
+<div id="ref-scitt2025" class="csl-entry" role="listitem">
+Birkholz, Henk, Antoine Delignat-Lavaud, Cédric Fournet, Yogesh
+Deshpande, and Steve Lasker. 2026. <em>An Architecture for Trustworthy
+and Transparent Digital Supply Chains</em>. RFC 9943. <a href="https://doi.org/10.17487/RFC9943">https://doi.org/10.17487/RFC9943</a>.
+</div>
+<div id="ref-cisco2024privacy" class="csl-entry" role="listitem">
+Cisco. 2024. <em>More Than 1 in 4 Organizations Banned Use of
+<span>GenAI</span> over Privacy and Data Security Risks</em>. <a href="https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2024/m01/organizations-ban-use-of-generative-ai-over-data-privacy-security-cisco-study.html">https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2024/m01/organizations-ban-use-of-generative-ai-over-data-privacy-security-cisco-study.html</a>.
+</div>
+<div id="ref-cnn2024arup" class="csl-entry" role="listitem">
+CNN. 2024. <em>British Engineering Giant <span>Arup</span> Revealed as
+$25 Million Deepfake Scam Victim</em>. <a href="https://edition.cnn.com/2024/05/16/tech/arup-deepfake-scam-loss-hong-kong-intl-hnk">https://edition.cnn.com/2024/05/16/tech/arup-deepfake-scam-loss-hong-kong-intl-hnk</a>.
+</div>
+<div id="ref-caif2022fraud" class="csl-entry" role="listitem">
+Coalition Against Insurance Fraud. 2022. <em>The Impact of Insurance
+Fraud on the <span>U.S.</span> Economy</em>. <a href="https://insurancefraud.org/wp-content/uploads/The-Impact-of-Insurance-Fraud-on-the-U.S.-Economy-Report-2022-8.26.2022.pdf">https://insurancefraud.org/wp-content/uploads/The-Impact-of-Insurance-Fraud-on-the-U.S.-Economy-Report-2022-8.26.2022.pdf</a>.
+</div>
+<div id="ref-cooper2008pnuts" class="csl-entry" role="listitem">
+Cooper, Brian F., Raghu Ramakrishnan, Utkarsh Srivastava, et al. 2008.
+<span>“<span>PNUTS</span>: <span>Yahoo!</span>’s Hosted Data Serving
+Platform.”</span> <em>Proceedings of the VLDB Endowment</em> 1 (2):
+1277–88. <a href="https://doi.org/10.14778/1454159.1454167">https://doi.org/10.14778/1454159.1454167</a>.
+</div>
+<div id="ref-dld2025tokenisation" class="csl-entry" role="listitem">
+Dubai Land Department. 2025. <em>Dubai Land Department Launches Pilot
+Phase of the Real Estate Tokenisation Project</em>. <a href="https://dubailand.gov.ae/en/news-media/dubai-land-department-launches-pilot-phase-of-the-real-estate-tokenisation-project">https://dubailand.gov.ae/en/news-media/dubai-land-department-launches-pilot-phase-of-the-real-estate-tokenisation-project</a>.
+</div>
+<div id="ref-energinet2023origin" class="csl-entry" role="listitem">
+Energinet. 2023. <em>Project Origin: Connecting the Dots from Energy
+Production to Consumption</em>. LF Energy Summit presentation. <a href="https://static.sched.com/hosted_files/lfenergysummit2023/e0/Project%20Origin%20pitch_deck_Polygraphic_Ver3_Paris_Nicolas_Bernhardi_Energinet.pdf">https://static.sched.com/hosted_files/lfenergysummit2023/e0/Project%20Origin%20pitch_deck_Polygraphic_Ver3_Paris_Nicolas_Bernhardi_Energinet.pdf</a>.
+</div>
+<div id="ref-etherscan2026" class="csl-entry" role="listitem">
+Etherscan. 2026. <em>Ethereum Daily Transactions Chart</em>. <a href="https://etherscan.io/chart/tx">https://etherscan.io/chart/tx</a>.
+</div>
+<div id="ref-espr2024" class="csl-entry" role="listitem">
+European Parliament and Council. 2024. <em>Regulation (<span>EU</span>)
+2024/1781 of 13 June 2024 Establishing a Framework for the Setting of
+Ecodesign Requirements for Sustainable Products, Amending Directive
+(<span>EU</span>) 2020/1828 and Regulation (<span>EU</span>) 2023/1542
+and Repealing Directive 2009/125/<span>EC</span></em>. Official Journal
+of the European Union, L, 28.6.2024. <a href="https://eur-lex.europa.eu/eli/reg/2024/1781/oj">https://eur-lex.europa.eu/eli/reg/2024/1781/oj</a>.
+</div>
+<div id="ref-eventchainrepo" class="csl-entry" role="listitem">
+EventChain. 2026a. <em><span>EventChain</span>: Open Haskell
+Implementation</em>. <a href="https://github.com/eventchain-protocol/eventchain" class="uri">Https://github.com/eventchain-protocol/eventchain</a>.
+</div>
+<div id="ref-eventchain2026verifier" class="csl-entry" role="listitem">
+EventChain. 2026b. <em>Minimal Actual-File Verifier Evidence</em>.
+Reproducible reference-implementation benchmark.
+</div>
+<div id="ref-eventchain2026contention" class="csl-entry" role="listitem">
+EventChain. 2026c. <em>Producer Contention: What Many Signers Racing for
+One Head Cost</em>. Reproducible reference-implementation benchmark.
+</div>
+<div id="ref-eventchainhub" class="csl-entry" role="listitem">
+EventChain Protocol. 2026. <em><span>EventChain</span> Hub Reference
+Implementation</em>. GitHub repository. <a href="https://github.com/eventchain-protocol/hub">https://github.com/eventchain-protocol/hub</a>.
+</div>
+<div id="ref-fido2026passkeys" class="csl-entry" role="listitem">
+FIDO Alliance. 2026. <em><span>FIDO Alliance</span> Reports Accelerating
+Global Passkey Adoption on World Passkey Day 2026</em>. <a href="https://fidoalliance.org/fido-alliance-reports-accelerating-global-passkey-adoption-on-world-passkey-day-2026/">https://fidoalliance.org/fido-alliance-reports-accelerating-global-passkey-adoption-on-world-passkey-day-2026/</a>.
+</div>
+<div id="ref-trillian" class="csl-entry" role="listitem">
+Google. 2026. <em><span>Trillian</span>: General Transparency</em>.
+GitHub repository. <a href="https://github.com/google/trillian">https://github.com/google/trillian</a>.
+</div>
+<div id="ref-gottlieb2026quiet" class="csl-entry" role="listitem">
+Gottlieb, Glenn. 2026. <em>The Quiet Winners: Enterprise Blockchain
+Applications That Deliver Durable Value</em>. Ecosystem Insights.
+Architect Partners. <a href="https://architectpartners.com/wp-content/uploads/2026/02/The-Quiet-Winners_Enterprise-Blockchain-Application-That-Deliver-Durable-Value.pdf">https://architectpartners.com/wp-content/uploads/2026/02/The-Quiet-Winners_Enterprise-Blockchain-Application-That-Deliver-Durable-Value.pdf</a>.
+</div>
+<div id="ref-haberstornetta1991" class="csl-entry" role="listitem">
+Haber, Stuart, and W. Scott Stornetta. 1991. <span>“How to Time-Stamp a
+Digital Document.”</span> <em>Journal of Cryptology</em> 3 (2): 99–111.
+<a href="https://doi.org/10.1007/BF00196791">https://doi.org/10.1007/BF00196791</a>.
+</div>
+<div id="ref-hill2018register" class="csl-entry" role="listitem">
+Hill, Rebecca. 2018. <em><span>IBM</span> Struggles to Sign up Shipping
+Carriers to Blockchain Supply Chain Platform</em>. The Register. <a href="https://www.theregister.com/2018/10/30/ibm_struggles_to_sign_up_shipping_carriers_to_blockchain_supply_chain_platform_reports/">https://www.theregister.com/2018/10/30/ibm_struggles_to_sign_up_shipping_carriers_to_blockchain_supply_chain_platform_reports/</a>.
+</div>
+<div id="ref-hmlr2026pg67" class="csl-entry" role="listitem">
+HM Land Registry. 2026. <em>Practice Guide 67: Evidence of
+Identity</em>. <a href="https://www.gov.uk/government/publications/evidence-of-identity-conveyancers/practice-guide-67-evidence-of-identity-conveyancers">https://www.gov.uk/government/publications/evidence-of-identity-conveyancers/practice-guide-67-evidence-of-identity-conveyancers</a>.
+</div>
+<div id="ref-webauthn2" class="csl-entry" role="listitem">
+Hodges, Jeff, J. C. Jones, Michael B. Jones, Akshay Kumar, and Emil
+Lundberg. 2021. <em>Web Authentication: An <span>API</span> for
+Accessing Public Key Credentials, Level 2</em>. W3C Recommendation. <a href="https://www.w3.org/TR/webauthn-2/">https://www.w3.org/TR/webauthn-2/</a>.
+</div>
+<div id="ref-hkfp2024deepfake" class="csl-entry" role="listitem">
+Hong Kong Free Press. 2024. <em>Multinational Loses <span>HK</span>$200
+Million to Deepfake Video Conference Scam, <span>Hong Kong</span> Police
+Say</em>. <a href="https://hongkongfp.com/2024/02/05/multinational-loses-hk200-million-to-deepfake-video-conference-scam-hong-kong-police-say/">https://hongkongfp.com/2024/02/05/multinational-loses-hk200-million-to-deepfake-video-conference-scam-hong-kong-police-say/</a>.
+</div>
+<div id="ref-howard2022b3i" class="csl-entry" role="listitem">
+Howard, L. S. 2022. <em>Industry’s Blockchain Project, <span>B3i</span>,
+Ceases to Trade After Filing for Insolvency</em>. Carrier Management. <a href="https://www.carriermanagement.com/news/2022/08/01/238818.htm">https://www.carriermanagement.com/news/2022/08/01/238818.htm</a>.
+</div>
+<div id="ref-ibm2021hapagone" class="csl-entry" role="listitem">
+IBM. 2021. <em>Hapag-Lloyd and Ocean Network Express Complete
+<span>TradeLens</span> Integration</em>. IBM Newsroom. <a href="https://newsroom.ibm.com/2021-06-24-Hapag-Lloyd-and-Ocean-Network-Express-Complete-TradeLens-Integration,-Join-Rapidly-Expanding-Shipping-Ecosystem-to-Further-Enhance-Trade-Digitization">https://newsroom.ibm.com/2021-06-24-Hapag-Lloyd-and-Ocean-Network-Express-Complete-TradeLens-Integration,-Join-Rapidly-Expanding-Shipping-Ecosystem-to-Further-Enhance-Trade-Digitization</a>.
+</div>
+<div id="ref-rfc4648" class="csl-entry" role="listitem">
+Josefsson, Simon. 2006. <em>The Base16, Base32, and Base64 Data
+Encodings</em>. RFC 4648. <a href="https://doi.org/10.17487/RFC4648">https://doi.org/10.17487/RFC4648</a>.
+</div>
+<div id="ref-jsonlines" class="csl-entry" role="listitem">
+JSON Lines. 2023. <em><span>JSON</span> Lines</em>. <a href="https://jsonlines.org/" class="uri">Https://jsonlines.org/</a>.
+</div>
+<div id="ref-rfc6962" class="csl-entry" role="listitem">
+Laurie, Ben, Adam Langley, and Emilia Kasper. 2013. <em>Certificate
+Transparency</em>. RFC 6962. <a href="https://doi.org/10.17487/RFC6962">https://doi.org/10.17487/RFC6962</a>.
+</div>
+<div id="ref-li2004sundr" class="csl-entry" role="listitem">
+Li, Jinyuan, Maxwell Krohn, David Mazières, and Dennis Shasha. 2004.
+<span>“Secure Untrusted Data Repository (<span>SUNDR</span>).”</span>
+<em>6th Symposium on Operating Systems Design and Implementation
+(OSDI)</em>, 121–36. <a href="https://www.usenix.org/legacy/event/osdi04/tech/full_papers/li_j/li_j.pdf">https://www.usenix.org/legacy/event/osdi04/tech/full_papers/li_j/li_j.pdf</a>.
+</div>
+<div id="ref-malik2019" class="csl-entry" role="listitem">
+Malik, Sidra, Volkan Dedeoglu, Salil S. Kanhere, and Raja Jurdak. 2019.
+<span>“<span>TrustChain</span>: Trust Management in Blockchain and
+<span>IoT</span> Supported Supply Chains.”</span> <em>IEEE International
+Conference on Blockchain</em>. <a href="https://doi.org/10.1109/Blockchain.2019.00032">https://doi.org/10.1109/Blockchain.2019.00032</a>.
+</div>
+<div id="ref-parakeet2023" class="csl-entry" role="listitem">
+Malvai, Harjasleen, Lefteris Kokoris-Kogias, Alberto Sonnino, et al.
+2023. <span>“<span>Parakeet</span>: Practical Key Transparency for
+End-to-End Encrypted Messaging.”</span> <em>Network and Distributed
+System Security Symposium (NDSS)</em>. <a href="https://www.ndss-symposium.org/ndss-paper/parakeet-practical-key-transparency-for-end-to-end-encrypted-messaging/">https://www.ndss-symposium.org/ndss-paper/parakeet-practical-key-transparency-for-end-to-end-encrypted-messaging/</a>.
+</div>
+<div id="ref-mcgee2022b3i" class="csl-entry" role="listitem">
+McGee, Scott. 2022. <em><span>B3i</span> Enters Insolvency After Failing
+to Raise Funding</em>. Insurance Post. <a href="https://postonline.co.uk/technology/7950336/b3i-enters-insolvency-after-failing-to-raise-funding">https://postonline.co.uk/technology/7950336/b3i-enters-insolvency-after-failing-to-raise-funding</a>.
+</div>
+<div id="ref-microsoft2026win11req" class="csl-entry" role="listitem">
+Microsoft. 2026. <em>Windows 11 Requirements</em>. <a href="https://learn.microsoft.com/en-us/windows/whats-new/windows-11-requirements">https://learn.microsoft.com/en-us/windows/whats-new/windows-11-requirements</a>.
+</div>
+<div id="ref-najati2025tradelens" class="csl-entry" role="listitem">
+Najati, Issam. 2025. <span>“Exploring the Failure Factors of Blockchain
+Adopting Projects: A Case Study of <span>TradeLens</span> Through the
+Lens of Commons Theory.”</span> <em>Frontiers in Blockchain</em> 8. <a href="https://doi.org/10.3389/fbloc.2025.1503595">https://doi.org/10.3389/fbloc.2025.1503595</a>.
+</div>
+<div id="ref-nasr2023extraction" class="csl-entry" role="listitem">
+Nasr, Milad, Nicholas Carlini, Jonathan Hayase, et al. 2023.
+<em>Scalable Extraction of Training Data from (Production) Language
+Models</em>. arXiv:2311.17035. <a href="https://arxiv.org/abs/2311.17035">https://arxiv.org/abs/2311.17035</a>.
+</div>
+<div id="ref-fips1804" class="csl-entry" role="listitem">
+National Institute of Standards and Technology. 2015. <em>Secure Hash
+Standard (<span>SHS</span>)</em>. FIPS Nos. 180-4. NIST. <a href="https://doi.org/10.6028/NIST.FIPS.180-4">https://doi.org/10.6028/NIST.FIPS.180-4</a>.
+</div>
+<div id="ref-fips1865" class="csl-entry" role="listitem">
+National Institute of Standards and Technology. 2023. <em>Digital
+Signature Standard (<span>DSS</span>)</em>. FIPS Nos. 186-5. NIST. <a href="https://doi.org/10.6028/NIST.FIPS.186-5">https://doi.org/10.6028/NIST.FIPS.186-5</a>.
+</div>
+<div id="ref-opentimestamps" class="csl-entry" role="listitem">
+OpenTimestamps. 2026. <em><span>OpenTimestamps</span>: A Timestamping
+Proof Standard</em>. <a href="https://opentimestamps.org/">https://opentimestamps.org/</a>.
+</div>
+<div id="ref-piernext2023tradelens" class="csl-entry" role="listitem">
+PierNext. 2023. <em>The Closure of <span>TradeLens</span>: When
+Technology Is Not Enough</em>. Port de Barcelona. <a href="https://piernext.portdebarcelona.cat/en/technology/the-closure-of-tradelens/">https://piernext.portdebarcelona.cat/en/technology/the-closure-of-tradelens/</a>.
+</div>
+<div id="ref-rfc6024" class="csl-entry" role="listitem">
+Reddy, Raksha, and Carl Wallace. 2010. <em>Trust Anchor Management
+Requirements</em>. RFC 6024. <a href="https://doi.org/10.17487/RFC6024">https://doi.org/10.17487/RFC6024</a>.
+</div>
+<div id="ref-rfc8785" class="csl-entry" role="listitem">
+Rundgren, Anders, Bret Jordan, and Samuel Erdtman. 2020.
+<em><span>JSON</span> Canonicalization Scheme (<span>JCS</span>)</em>.
+RFC 8785. <a href="https://doi.org/10.17487/RFC8785">https://doi.org/10.17487/RFC8785</a>.
+</div>
+<div id="ref-sfo2026aog" class="csl-entry" role="listitem">
+Serious Fraud Office. 2026. <em><span>SFO</span> Secures 4-Year Prison
+Sentence for Aircraft Parts Fraud</em>. <a href="https://www.gov.uk/government/news/sfo-secures-4-year-prison-sentence-for-aircraft-parts-fraud">https://www.gov.uk/government/news/sfo-secures-4-year-prison-sentence-for-aircraft-parts-fraud</a>.
+</div>
+<div id="ref-keri2019" class="csl-entry" role="listitem">
+Smith, Samuel M. 2019. <em>Key Event Receipt Infrastructure
+(<span>KERI</span>)</em>. <a href="https://arxiv.org/abs/1907.02143">https://arxiv.org/abs/1907.02143</a>.
+</div>
+<div id="ref-sec1v2" class="csl-entry" role="listitem">
+Standards for Efficient Cryptography Group. 2009. <em><span>SEC</span>
+1: Elliptic Curve Cryptography, Version 2.0</em>. Certicom Research. <a href="https://www.secg.org/sec1-v2.pdf">https://www.secg.org/sec1-v2.pdf</a>.
+</div>
+<div id="ref-freightwaves2020walmart" class="csl-entry" role="listitem">
+Tabak, Nate. 2020. <em>How <span>Walmart</span> Solved Carrier Payment
+Woes in <span>Canada</span> with Blockchain</em>. FreightWaves. <a href="https://www.freightwaves.com/news/how-walmart-solved-carrier-payment-woes-in-canada-with-blockchain">https://www.freightwaves.com/news/how-walmart-solved-carrier-payment-woes-in-canada-with-blockchain</a>.
+</div>
+<div id="ref-todd2016ots" class="csl-entry" role="listitem">
+Todd, Peter. 2016. <em><span>OpenTimestamps</span>: Scalable,
+Trust-Minimized, Distributed Timestamping with Bitcoin</em>. <a href="https://petertodd.org/2016/opentimestamps-announcement">https://petertodd.org/2016/opentimestamps-announcement</a>.
+</div>
+<div id="ref-tradelens2021pricing" class="csl-entry" role="listitem">
+TradeLens. 2021. <em>Pricing</em>. <a href="https://www.tradelens.com/pricing">https://www.tradelens.com/pricing</a>.
+</div>
+<div id="ref-uaedes2022" class="csl-entry" role="listitem">
+UAE Government. 2022. <em>Digital Economy Strategy</em>. The Official
+Portal of the UAE Government (u.ae). <a href="https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/finance-and-economy/digital-economy-strategy">https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/finance-and-economy/digital-economy-strategy</a>.
+</div>
+<div id="ref-ukETDA2023" class="csl-entry" role="listitem">
+UK Parliament. 2023. <em>Electronic Trade Documents Act 2023</em>. <a href="https://www.legislation.gov.uk/ukpga/2023/38/enacted">https://www.legislation.gov.uk/ukpga/2023/38/enacted</a>.
+</div>
+<div id="ref-uncitral2025mletrstatus" class="csl-entry" role="listitem">
+United Nations Commission on International Trade Law. 2025.
+<em><span>UNCITRAL</span> Model Law on Electronic Transferable Records
+(2017): Status</em>. <a href="https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_transferable_records/status">https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_transferable_records/status</a>.
+</div>
+<div id="ref-escap2025tradelens" class="csl-entry" role="listitem">
+United Nations ESCAP. 2025. <em><span>TradeLens</span></em>.
+Cross-Border Paperless Trade Database (Digitalize Trade). <a href="https://www.digitalizetrade.org/projects/tradelens">https://www.digitalizetrade.org/projects/tradelens</a>.
+</div>
+<div id="ref-cbp2024uflpa" class="csl-entry" role="listitem">
+U.S. Customs and Border Protection. 2026. <em>Uyghur Forced Labor
+Prevention Act</em>. <a href="https://www.cbp.gov/trade/forced-labor/UFLPA">https://www.cbp.gov/trade/forced-labor/UFLPA</a>.
+</div>
+<div id="ref-fda2018dataintegrity" class="csl-entry" role="listitem">
+U.S. Food and Drug Administration. 2018. <em>Data Integrity and
+Compliance with Drug <span>CGMP</span>: Questions and Answers, Guidance
+for Industry</em>. U.S. Food; Drug Administration. <a href="https://www.fda.gov/media/119267/download">https://www.fda.gov/media/119267/download</a>.
+</div>
+<div id="ref-gtr2022realitycheck" class="csl-entry" role="listitem">
+Wragg, Eleanor. 2022a. <em>Trade’s Blockchain Proponents Face Reality
+Check as Hype Fades</em>. Global Trade Review. <a href="https://www.gtreview.com/magazine/the-fintech-issue-2022/trades-blockchain-proponents-face-reality-check-as-hype-fades">https://www.gtreview.com/magazine/the-fintech-issue-2022/trades-blockchain-proponents-face-reality-check-as-hype-fades</a>.
+</div>
+<div id="ref-gtr2022wetrade" class="csl-entry" role="listitem">
+Wragg, Eleanor. 2022b. <em>We.trade Calls It Quits After Running Out of
+Cash</em>. Global Trade Review. <a href="https://www.gtreview.com/news/top-stories/we-trade-calls-it-quits-after-running-out-of-cash/">https://www.gtreview.com/news/top-stories/we-trade-calls-it-quits-after-running-out-of-cash/</a>.
+</div>
+<div id="ref-gtr2023marcopolo" class="csl-entry" role="listitem">
+Wragg, Eleanor. 2023a. <em>Marco Polo Brings in Liquidators as Funds Run
+Dry</em>. Global Trade Review. <a href="https://www.gtreview.com/news/fintech/marco-polo-brings-in-liquidators-as-funds-run-dry/">https://www.gtreview.com/news/fintech/marco-polo-brings-in-liquidators-as-funds-run-dry/</a>.
+</div>
+<div id="ref-gtr2023ebl" class="csl-entry" role="listitem">
+Wragg, Eleanor. 2023b. <em>Shipping Industry Sets Course for Fully
+Paperless Trade</em>. Global Trade Review. <a href="https://www.gtreview.com/news/fintech/shipping-industry-sets-course-for-fully-paperless-trade/">https://www.gtreview.com/news/fintech/shipping-industry-sets-course-for-fully-paperless-trade/</a>.
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/eventchain-protocol\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./appendix-standards-positioning.html" class="pagination-link" aria-label="Appendix: Comparison Tables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Appendix: Comparison Tables</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="visuals.js"></script>
+
+
+
+
+</body></html>
