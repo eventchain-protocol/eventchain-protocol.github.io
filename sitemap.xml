@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://eventchain-protocol.github.io/index.html</loc>
-    <lastmod>2026-10-13T21:14:52.285Z</lastmod>
+    <lastmod>2026-10-14T13:01:25.635Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/executive-summary.html</loc>
-    <lastmod>2026-10-13T15:52:54.323Z</lastmod>
+    <lastmod>2026-10-14T12:17:05.374Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/the-provenance-problem.html</loc>
-    <lastmod>2026-10-13T11:15:59.668Z</lastmod>
+    <lastmod>2026-10-14T13:01:25.635Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/consensus-by-comparison.html</loc>
-    <lastmod>2026-10-14T00:15:12.444Z</lastmod>
+    <lastmod>2026-10-14T13:58:54.105Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/how-it-works.html</loc>
-    <lastmod>2026-10-13T12:45:15.364Z</lastmod>
+    <lastmod>2026-10-14T14:14:06.949Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/open-protocol.html</loc>
-    <lastmod>2026-10-13T12:54:03.723Z</lastmod>
+    <lastmod>2026-10-14T13:50:45.560Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/conclusion.html</loc>
@@ -30,15 +30,15 @@
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/use-cases.html</loc>
-    <lastmod>2026-10-13T10:07:26.813Z</lastmod>
+    <lastmod>2026-10-14T12:54:15.461Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/appendix-specification.html</loc>
-    <lastmod>2026-10-13T11:21:22.176Z</lastmod>
+    <lastmod>2026-10-14T14:16:32.928Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/appendix-standards-positioning.html</loc>
-    <lastmod>2026-10-13T10:21:54.570Z</lastmod>
+    <lastmod>2026-10-14T13:50:45.561Z</lastmod>
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/references.html</loc>
@@ -46,6 +46,6 @@
   </url>
   <url>
     <loc>https://eventchain-protocol.github.io/EventChain--Consensus-by-Comparison.pdf</loc>
-    <lastmod>2026-10-14T00:15:33.163Z</lastmod>
+    <lastmod>2026-10-14T14:20:21.930Z</lastmod>
   </url>
 </urlset>

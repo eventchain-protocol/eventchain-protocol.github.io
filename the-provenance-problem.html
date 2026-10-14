@@ -91,9 +91,6 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <link rel="describedby" href="https://eventchain-protocol.github.io/llms.txt">
 
 
@@ -123,6 +120,7 @@ div.csl-indent {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
 <p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+<p><a href="https://github.com/eventchain-protocol/eventchain">EventChain on GitHub</a></p>
 </div></div>
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
@@ -215,7 +213,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-cross-system-evidence" id="toc-sec-cross-system-evidence" class="nav-link active" data-scroll-target="#sec-cross-system-evidence"><span class="header-section-number">2.1</span> Histories Held in Slices</a></li>
+  <li><a href="#sec-cross-system-evidence" id="toc-sec-cross-system-evidence" class="nav-link active" data-scroll-target="#sec-cross-system-evidence"><span class="header-section-number">2.1</span> Each Party Keeps Its Own Records</a></li>
   <li><a href="#sec-why-now" id="toc-sec-why-now" class="nav-link" data-scroll-target="#sec-why-now"><span class="header-section-number">2.2</span> Why Now</a></li>
   <li><a href="#sec-trust-evolution" id="toc-sec-trust-evolution" class="nav-link" data-scroll-target="#sec-trust-evolution"><span class="header-section-number">2.3</span> Who Keeps the History</a>
   <ul class="collapse">
@@ -242,7 +240,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 13, 2026</p>
+      <p class="date-modified">October 14, 2026</p>
     </div>
   </div>
     
@@ -253,42 +251,17 @@ div.csl-indent {
 </header>
 
 
-<p>Suppose a buyer receives fewer cartons than the carrier’s invoice charges for. Each side reconstructs the delivery from its own records before comparing versions. Evidence can also control what happens before the goods leave. In the hypothetical dispatch application in <a href="#fig-delivery-reconciliation" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>, a smart contract, software that enforces agreed conditions, checks signed commitments in EventChain. A missing acceptance holds dispatch; once the required evidence satisfies the rules, the dispatch system releases the shipment without another manual check.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div id="fig-delivery-reconciliation" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-delivery-reconciliation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
-<pre class="mermaid mermaid-js" data-label="fig-delivery-reconciliation">flowchart BT
-    E["EventChain&lt;br/&gt;Signed commitments"]
-    C{"Smart contract&lt;br/&gt;Dispatch conditions met?"}
-    H["Shipment stays&lt;br/&gt;on hold"]
-    D["Dispatch system&lt;br/&gt;releases shipment"]
-    E --&gt;|"Verified evidence"| C
-    C --&gt;|"Acceptance missing"| H
-    C --&gt;|"Required evidence satisfies rules"| D
-</pre>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delivery-reconciliation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: A hypothetical dispatch application. The dispatch system enforces the smart contract’s decision; EventChain supplies the signed evidence beneath it.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Physical checks still establish whether the shipment matches the signed claims. The signed history remains intact while the handoff waits for acceptance. Applications can rely on that history only if it has five properties.</p>
+<p>Suppose a buyer receives fewer cartons than the carrier’s invoice charges for. Each side rebuilds the delivery from its own records, and the two versions first meet at the invoice. Days go into working out which one is right. This chapter shows why that work exists, why it costs more than it did five years ago, who has kept the history so far, and what a history must have before the parties can stop rebuilding it.</p>
 <section id="sec-cross-system-evidence" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="sec-cross-system-evidence"><span class="header-section-number">2.1</span> Histories Held in Slices</h2>
-<p>Organisations can verify objects better than histories. A certificate or a meter reading matters because of the actions around it: who issued it and who relied on it next. Those actions sit in emails and in each party’s own systems, so an outside party reconstructs the history when it needs one, from the parts it can reach.</p>
-<p>Even two parties who trade every day lack a history of their shared work that both hold. In 2020, FreightWaves reported that up to 70% of Walmart Canada’s carrier freight invoices had “some sort of issue”, so staff spent their time sorting out the charges and carriers waited for payment, before the retailer and its carriers worked from one shared history of each shipment; afterwards, the carriers disputed fewer than 2% of more than 150,000 invoices <span class="citation" data-cites="freightwaves2020walmart">(<a href="references.html#ref-freightwaves2020walmart" role="doc-biblioref">Tabak 2020</a>)</span>. The invoices did not disagree because anyone lied. They disagreed because each side reconciled the shipment from its own records and met the other side’s version only at the invoice.</p>
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-cross-system-evidence"><span class="header-section-number">2.1</span> Each Party Keeps Its Own Records</h2>
+<p>Today a company can check a document. The actions around it, who issued it, who relied on it, and what happened next, sit in emails and in other companies’ systems. Each party keeps its own records of a shared process, and the whole history exists nowhere, so whoever needs it rebuilds it from the parts it can reach.</p>
+<p>Even two parties who trade every day lack a history of their shared work that both hold. In 2020 FreightWaves reported that up to 70% of Walmart Canada’s carrier freight invoices had “some sort of issue”. Staff spent their time sorting out the charges, and carriers waited for payment. Then the retailer and its carriers worked from one shared history of each shipment. After that, the carriers disputed fewer than 2% of more than 150,000 invoices <span class="citation" data-cites="freightwaves2020walmart">(<a href="references.html#ref-freightwaves2020walmart" role="doc-biblioref">Tabak 2020</a>)</span>. The invoices did not disagree because anyone lied. They disagreed because each side reconciled the shipment from its own records and met the other side’s version only at the invoice.</p>
 <p>Where reconstruction falls short, organisations fill the gap with trust, as when a manufacturer trusts a supplier’s database. The supplier can change a record in it later, or show different parties different copies, and nobody outside would notice.</p>
 </section>
 <section id="sec-why-now" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="sec-why-now"><span class="header-section-number">2.2</span> Why Now</h2>
 <p>Four changes make a history that outsiders can check worth more than it was five years ago: more value rests on digital claims, faking evidence has become cheap, the burden of proof is moving onto the company, and the tools to sign at source already sit in people’s hands.</p>
-<p>Governments are moving transactions that once rested on paper onto digital claims. The UAE’s Digital Economy Strategy, launched in April 2022, “aims to double the contribution of the digital economy to the UAE’s gross domestic product (GDP) from 9.7 per cent in 2022 to 19.4 per cent within 10 years” <span class="citation" data-cites="uaedes2022">(<a href="references.html#ref-uaedes2022" role="doc-biblioref">UAE Government 2022</a>)</span>. Abu Dhabi has committed AED 13 billion over 2025–2027 to digitise and automate “100% of processes” in its government <span class="citation" data-cites="adgov2025digital">(<a href="references.html#ref-adgov2025digital" role="doc-biblioref">Abu Dhabi Government Media Office 2025</a>)</span>. Dubai Land Department forecasts that tokenised property will reach AED 60 billion, “7% of Dubai’s total real estate transactions”, by 2033; the figure is the department’s own forecast for a pilot launched in March 2025 <span class="citation" data-cites="dld2025tokenisation">(<a href="references.html#ref-dld2025tokenisation" role="doc-biblioref">Dubai Land Department 2025</a>)</span>. Trade documents are moving the same way. Under the UK’s Electronic Trade Documents Act 2023, “An electronic trade document has the same effect as an equivalent paper trade document” (s.3(2)) <span class="citation" data-cites="ukETDA2023">(<a href="references.html#ref-ukETDA2023" role="doc-biblioref">UK Parliament 2023</a>)</span>, and 13 jurisdictions have adopted UNCITRAL’s Model Law on Electronic Transferable Records, including Singapore and Abu Dhabi Global Market, several of them in part <span class="citation" data-cites="uncitral2025mletrstatus">(<a href="references.html#ref-uncitral2025mletrstatus" role="doc-biblioref">United Nations Commission on International Trade Law 2025</a>)</span>. A digital title or an electronic bill of lading is worth what the evidence behind it is worth: who checked the identity, who valued the asset, who approved the transfer, and in what order.</p>
+<p>Governments are moving transactions that once rested on paper onto digital claims. Dubai Land Department forecasts that tokenised property will reach AED 60 billion, “7% of Dubai’s total real estate transactions”, by 2033; the figure is the department’s own forecast for a pilot launched in March 2025 <span class="citation" data-cites="dld2025tokenisation">(<a href="references.html#ref-dld2025tokenisation" role="doc-biblioref">Dubai Land Department 2025</a>)</span>. Trade documents are moving the same way. Under the UK’s Electronic Trade Documents Act 2023, “An electronic trade document has the same effect as an equivalent paper trade document” (s.3(2)) <span class="citation" data-cites="ukETDA2023">(<a href="references.html#ref-ukETDA2023" role="doc-biblioref">UK Parliament 2023</a>)</span>, and 13 jurisdictions have adopted UNCITRAL’s Model Law on Electronic Transferable Records, including Singapore and Abu Dhabi Global Market, several of them in part <span class="citation" data-cites="uncitral2025mletrstatus">(<a href="references.html#ref-uncitral2025mletrstatus" role="doc-biblioref">United Nations Commission on International Trade Law 2025</a>)</span>. A digital title or an electronic bill of lading is worth what the evidence behind it is worth: who checked the identity, who valued the asset, who approved the transfer, and in what order.</p>
 <p>Faking the evidence has become cheap. In 2024 an employee in the Hong Kong office of the engineering firm Arup made 15 transfers totalling HK$200 million, about US$26 million, after a video call on which everyone except the employee was a deepfake <span class="citation" data-cites="hkfp2024deepfake cnn2024arup">(<a href="references.html#ref-hkfp2024deepfake" role="doc-biblioref">Hong Kong Free Press 2024</a>; <a href="references.html#ref-cnn2024arup" role="doc-biblioref">CNN 2024</a>)</span>. The call carried every signal the employee normally relied on: familiar faces, familiar voices, a senior instruction. A check on who signed, with a key held in the signer’s own device, still holds, because a deepfake cannot produce that signature.</p>
 <p>The burden of proof is moving onto the company. Since 21 June 2022, US Customs and Border Protection has presumed that forced labour made any goods produced wholly or in part in Xinjiang, and the importer must rebut the presumption <span class="citation" data-cites="cbp2024uflpa">(<a href="references.html#ref-cbp2024uflpa" role="doc-biblioref">U.S. Customs and Border Protection 2026</a>)</span>. The evidence that rebuts it originates with suppliers, their suppliers, and the facilities that made each input, each keeping its own records. An importer that cannot show that history in an order customs can check carries the loss.</p>
 <p>The signing tools are already in place. The FIDO Alliance, the industry body behind passkeys, reported 5 billion passkeys in use worldwide in May 2026 <span class="citation" data-cites="fido2026passkeys">(<a href="references.html#ref-fido2026passkeys" role="doc-biblioref">FIDO Alliance 2026</a>)</span>, and Windows 11 requires “Trusted Platform Module (TPM) version 2.0” <span class="citation" data-cites="microsoft2026win11req">(<a href="references.html#ref-microsoft2026win11req" role="doc-biblioref">Microsoft 2026</a>)</span>. People already carry the credential that can sign a statement, and computers already hold hardware that can protect a signing key.</p>
@@ -339,25 +312,25 @@ Table&nbsp;2.1: Whom an outside party still trusts for a history, by generation 
 <tr class="odd">
 <td style="text-align: left;">Portable signed evidence</td>
 <td style="text-align: left;">Every interested party holds the full history and reconciles it as it happens</td>
-<td style="text-align: left;">The signers and the enrolment evidence behind their keys; the heartbeat list (a public list of the Hub’s heartbeats that the Hub does not control); the Hub’s availability to accept new entries</td>
+<td style="text-align: left;">The signers and the enrolment evidence behind their keys; the heartbeat hosts (parties that hold the Hub’s heartbeats and that the Hub does not control); the Hub’s availability to accept new entries</td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>Each earlier generation made the history easier to share, but each left the outsider holding a slice of it, which the outsider reconciles against other slices after the fact. In the last generation every interested party holds the whole history and reconciles it as it happens. The Hub, the one service that orders and distributes entries, publishes a signed statement of the newest entry at an agreed interval (a <em>heartbeat</em>). Each holder checks that every entry carries its producer’s signature over everything before it, and that its copy matches the latest heartbeat (<a href="consensus-by-comparison.html" class="quarto-xref"><span>Chapter 3</span></a>).</p>
+<p>Each earlier generation made the history easier to share, but each left the outsider holding only its own records, which it reconciles against the others’ after the fact. In the last generation every interested party holds the whole history and reconciles it as it happens. The Hub, the one service that orders and distributes entries, publishes a signed statement of the newest entry at an agreed interval (a <em>heartbeat</em>). Each holder checks that every entry carries its producer’s signature over everything before it, and that its copy matches the latest heartbeat (<a href="consensus-by-comparison.html" class="quarto-xref"><span>Chapter 3</span></a>).</p>
 <section id="sec-ledger-generation" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="sec-ledger-generation"><span class="header-section-number">2.3.1</span> Why Blockchains Stalled</h3>
 <p>Several enterprise blockchain consortia closed in 2022 and 2023. Their principals cited funding, participation, and commercial viability <span class="citation" data-cites="maersk2022tradelens gtr2022wetrade mcgee2022b3i gtr2023marcopolo">(<a href="references.html#ref-maersk2022tradelens" role="doc-biblioref">A.P. Moller - Maersk 2022</a>; <a href="references.html#ref-gtr2022wetrade" role="doc-biblioref">Wragg 2022b</a>, <a href="references.html#ref-gtr2023marcopolo" role="doc-biblioref">2023a</a>; <a href="references.html#ref-mcgee2022b3i" role="doc-biblioref">McGee 2022</a>)</span>. Participants named what consumed the money. One, quoted in Global Trade Review, called it “a business model problem more than anything … people underestimate the time and money required to reach critical mass” <span class="citation" data-cites="gtr2022realitycheck">(<a href="references.html#ref-gtr2022realitycheck" role="doc-biblioref">Wragg 2022a</a>)</span>. Swiss Re’s chief executive said of B3i, a consortium of insurers of which Swiss Re was a member: “It would need all insurance companies to basically create smart contracts at the beginning, at the origin” <span class="citation" data-cites="howard2022b3i">(<a href="references.html#ref-howard2022b3i" role="doc-biblioref">Howard 2022</a>)</span>. We read this as the architecture’s cost surfacing as a funding problem: a network that is useful only once most participants have joined needs financing until they do.</p>
 <p>TradeLens reached ten ocean carriers and connectivity to about two-thirds of global containerised freight <span class="citation" data-cites="ibm2021hapagone">(<a href="references.html#ref-ibm2021hapagone" role="doc-biblioref">IBM 2021</a>)</span>, and still closed. In 2018, Hapag-Lloyd’s chief executive, Rolf Habben Jansen, named the objection: “each individual project claims to offer an industry platform that they themselves control. This is self-contradictory” <span class="citation" data-cites="hill2018register">(<a href="references.html#ref-hill2018register" role="doc-biblioref">Hill 2018</a>)</span>. The UN’s trade-digitalisation database records that “the shipping industry didn’t have the appetite for sharing confidential data with a competitor” <span class="citation" data-cites="escap2025tradelens najati2025tradelens">(<a href="references.html#ref-escap2025tradelens" role="doc-biblioref">United Nations ESCAP 2025</a>; <a href="references.html#ref-najati2025tradelens" role="doc-biblioref">Najati 2025</a>)</span>. Price and the industry’s reliance on paper documents weighed as well; only 1.2% of bills of lading were electronic <span class="citation" data-cites="piernext2023tradelens gtr2023ebl">(<a href="references.html#ref-piernext2023tradelens" role="doc-biblioref">PierNext 2023</a>; <a href="references.html#ref-gtr2023ebl" role="doc-biblioref">Wragg 2023b</a>)</span>. Neither cause belonged to the protocol, and both have moved since: electronic trade documents now carry the legal effect of paper (<a href="#sec-why-now" class="quarto-xref"><span>Section 2.2</span></a>), and a history that costs one write per event has no per-container price to charge (<a href="consensus-by-comparison.html#sec-what-it-costs" class="quarto-xref"><span>Section 3.2</span></a>).</p>
 <p>Where one accountable operator already existed, a shared blockchain added little. ASX’s independent review found “little value to processing all the business logic on-ledger as ASX maintain data integrity as the market operator”, and that consensus contributed to round-trip latency; settlement runs of more than 100,000 transactions failed under load <span class="citation" data-cites="accenture2022chess">(<a href="references.html#ref-accenture2022chess" role="doc-biblioref">Accenture 2022</a>)</span>. ASX wrote off A$245–255 million <span class="citation" data-cites="asx2022chess">(<a href="references.html#ref-asx2022chess" role="doc-biblioref">ASX Limited 2022</a>)</span>.</p>
-<p>The blockchain projects that lasted solved one business problem, treated the blockchain as an implementation detail, and had a party able to bring participants in: a regulatory mandate, a party with workflow authority, or an existing orchestrator <span class="citation" data-cites="gottlieb2026quiet">(<a href="references.html#ref-gottlieb2026quiet" role="doc-biblioref">Gottlieb 2026</a>)</span>. Where no such party exists, the last row of <a href="#tbl-trust-evolution" class="quarto-xref">Table&nbsp;<span>2.1</span></a> needs no one to bring participants in, because each outside party checks the evidence it holds without joining anything.</p>
+<p>The blockchain projects that lasted solved one business problem, treated the blockchain as an implementation detail, and had a party able to bring participants in: a regulatory mandate, a party with workflow authority, or an existing orchestrator <span class="citation" data-cites="gottlieb2026quiet">(<a href="references.html#ref-gottlieb2026quiet" role="doc-biblioref">Gottlieb 2026</a>)</span>. Where no such party exists, portable signed evidence needs no one to bring participants in, because each outside party checks the evidence it holds without joining anything.</p>
 </section>
 </section>
 <section id="sec-provenance-requirements" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="sec-provenance-requirements"><span class="header-section-number">2.4</span> Five Requirements</h2>
-<p>The history in the last row of <a href="#tbl-trust-evolution" class="quarto-xref">Table&nbsp;<span>2.1</span></a> needs five properties at once.</p>
+<p>Portable signed evidence needs five properties at once.</p>
 <div id="tbl-requirements" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-requirements-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -411,9 +384,6 @@ Table&nbsp;2.2: Provenance requirements and their practical meaning
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-adgov2025digital" class="csl-entry" role="listitem">
-Abu Dhabi Government Media Office. 2025. <em>Abu Dhabi Government Launches Digital Strategy 2025–2027</em>. <a href="https://www.mediaoffice.abudhabi/en/government-affairs/abu-dhabi-government-launches-digital-strategy-2025-2027/">https://www.mediaoffice.abudhabi/en/government-affairs/abu-dhabi-government-launches-digital-strategy-2025-2027/</a>.
-</div>
 <div id="ref-accenture2022chess" class="csl-entry" role="listitem">
 Accenture. 2022. <em><span>ASX</span> <span>CHESS</span> Replacement Application Delivery Review</em>. Accenture, published by the Australian Securities; Investments Commission (Report 23-035). <a href="https://download.asic.gov.au/media/ku2aa1kz/23-035-asx-chess-replacement-application-delivery-review-2022.pdf">https://download.asic.gov.au/media/ku2aa1kz/23-035-asx-chess-replacement-application-delivery-review-2022.pdf</a>.
 </div>
@@ -461,9 +431,6 @@ PierNext. 2023. <em>The Closure of <span>TradeLens</span>: When Technology Is No
 </div>
 <div id="ref-freightwaves2020walmart" class="csl-entry" role="listitem">
 Tabak, Nate. 2020. <em>How <span>Walmart</span> Solved Carrier Payment Woes in <span>Canada</span> with Blockchain</em>. FreightWaves. <a href="https://www.freightwaves.com/news/how-walmart-solved-carrier-payment-woes-in-canada-with-blockchain">https://www.freightwaves.com/news/how-walmart-solved-carrier-payment-woes-in-canada-with-blockchain</a>.
-</div>
-<div id="ref-uaedes2022" class="csl-entry" role="listitem">
-UAE Government. 2022. <em>Digital Economy Strategy</em>. The Official Portal of the UAE Government (u.ae). <a href="https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/finance-and-economy/digital-economy-strategy">https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/finance-and-economy/digital-economy-strategy</a>.
 </div>
 <div id="ref-ukETDA2023" class="csl-entry" role="listitem">
 UK Parliament. 2023. <em>Electronic Trade Documents Act 2023</em>. <a href="https://www.legislation.gov.uk/ukpga/2023/38/enacted">https://www.legislation.gov.uk/ukpga/2023/38/enacted</a>.

@@ -102,6 +102,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
 <p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+<p><a href="https://github.com/eventchain-protocol/eventchain">EventChain on GitHub</a></p>
 </div></div>
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
@@ -219,7 +220,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 13, 2026</p>
+      <p class="date-modified">October 14, 2026</p>
     </div>
   </div>
     
@@ -232,9 +233,11 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="abstract" class="level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Abstract</h1>
-<p>This paper defines EventChain, which records first and agrees afterwards. Whoever makes a reading, an estimate, an approval or a handoff signs it with their own key. Each signature covers everything before it, so nobody can change the past. One service, the Hub, orders and distributes the history as a file that every party with a stake in it keeps. At an agreed interval the Hub publishes one signed line that states the latest entry. Each holder verifies every entry by the same rules and compares its copy with that line, so every party knows that any other party checking against that line holds the same history through the entry it names, and reaches the same verdict on each entry. Agreement becomes a check each party runs for itself. A blockchain agrees first and records second, so every member must have built and paid for its system before the first entry is worth writing. In EventChain an entry costs one signature and one write, and one company can start without waiting for anyone else.</p>
-<p>A valid chain shows which key signed what, and in what order. Whether a statement was true stays with its signer, and what to do about it stays with the application that acts on the evidence. Where strangers settle payments with one another, a blockchain’s round of votes remains the right tool.</p>
-<p><strong>Revision <code>682367d</code> — October 2026</strong></p>
+<p>Today each party to a process keeps its own records of it and reconciles them with the others’ after the fact. When the records disagree, the party that cannot prove what happened carries the loss. Blockchains promised one shared history, but a blockchain agrees on each entry before it writes it, so every member had to build and pay for its system before the first entry was worth writing, and several consortia closed before they reached that point.</p>
+<p>This paper defines EventChain, a protocol and file format for that shared history. It states what each guarantee assumes, compares the guarantees and costs with those of public and permissioned blockchains on dated published figures, and takes five processes through it in worked examples. A reference implementation accompanies the specification.</p>
+<p>EventChain allows different holders to know that every other holder checking the same chain of events holds the same history through the entry it names. That is the certainty a blockchain promises, and no party has to join a network to get it. An entry costs one signature and one write. One company starts alone, the work grows with the number of events, and adding a party adds a copy of the file.</p>
+<p>What becomes worth recording is every reading, revision, approval and handoff that a blockchain made too expensive to record one at a time. A dispute then starts from evidence both sides already hold, and a payment or an approval can follow the evidence the moment it arrives. A valid chain shows which key signed what, and in what order. Whether a statement was true stays with its signer, and what to do about it stays with the application that acts on the evidence. Where strangers settle payments with one another, a blockchain’s round of votes remains the right tool.</p>
+<p><strong>Revision <code>2356446</code> — October 2026</strong></p>
 
 
 </section>

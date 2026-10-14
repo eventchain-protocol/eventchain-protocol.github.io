@@ -120,6 +120,7 @@ div.csl-indent {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
 <p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+<p><a href="https://github.com/eventchain-protocol/eventchain">EventChain on GitHub</a></p>
 </div></div>
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
@@ -215,6 +216,7 @@ div.csl-indent {
   <li><a href="#sec-entry-spec" id="toc-sec-entry-spec" class="nav-link active" data-scroll-target="#sec-entry-spec">Entry Specification</a></li>
   <li><a href="#sec-spec-mint" id="toc-sec-spec-mint" class="nav-link" data-scroll-target="#sec-spec-mint">WebAuthn Assertion Checks</a></li>
   <li><a href="#sec-spec-heartbeat" id="toc-sec-spec-heartbeat" class="nav-link" data-scroll-target="#sec-spec-heartbeat">Heartbeat Encoding and Retrieval</a></li>
+  <li><a href="#sec-spec-submission" id="toc-sec-spec-submission" class="nav-link" data-scroll-target="#sec-spec-submission">Submission, Receipt and Refusal</a></li>
   <li><a href="#sec-spec-cbc" id="toc-sec-spec-cbc" class="nav-link" data-scroll-target="#sec-spec-cbc">CBC and Correction References</a>
   <ul class="collapse">
   <li><a href="#sec-corrections" id="toc-sec-corrections" class="nav-link" data-scroll-target="#sec-corrections">Corrections</a></li>
@@ -242,7 +244,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 13, 2026</p>
+      <p class="date-modified">October 14, 2026</p>
     </div>
   </div>
     
@@ -264,8 +266,8 @@ div.csl-indent {
 <li><code>signature</code>: the 64-byte concatenation <code>r ‖ s</code>, each a 32-byte big-endian unsigned integer.</li>
 </ul>
 <p><code>entry_id</code> and <code>payload_ref</code> are opaque strings with no encoding requirement.</p>
-<p><strong>Event ID.</strong> The Event ID (<a href="how-it-works.html#sec-aof" class="quarto-xref"><span>Append-Only File</span></a>) excludes the row’s terminating <code>0x0a</code>. After writing the row, the Hub derives and returns the Event ID and may record it in a separate lookup index. An application keeps <code>evidence(row key, Event ID, salt)</code> beside its existing data. The Hub answers lookups, and a holder checks each answer against the Event ID and its own copy of the chain.</p>
-<p><strong><code>entry.data()</code>.</strong> The signed message <code>entry.data()</code> is the JSON Canonicalization Scheme <span class="citation" data-cites="rfc8785">(<a href="references.html#ref-rfc8785" role="doc-biblioref">Rundgren et al. 2020</a>)</span> serialisation of the entry object without its <code>signature</code> member. The removal applies to exactly the member named <code>signature</code>; the signature covers every other member the declared revision permits. Because RFC 8785 orders members by name, producers may write members in any order on the line. An unknown member or an unsupported revision makes the entry malformed. Authenticating which topic a history belongs to also requires an accepted binding between the topic and its first entry, and that convention remains open.</p>
+<p><strong>Event ID.</strong> The Event ID (<a href="how-it-works.html#sec-aof" class="quarto-xref"><span>Append-Only File</span></a>) excludes the row’s terminating <code>0x0a</code>. After the append, the Hub returns the new position and head hash and the number of lines written (<a href="#sec-spec-submission">receipt</a>); for a one-line submission the head hash is that line’s Event ID. The Hub may record Event IDs in a separate lookup index. An application keeps <code>evidence(row key, Event ID, salt)</code> beside its existing data. The Hub answers lookups, and a holder checks each answer against the Event ID and its own copy of the chain.</p>
+<p><strong><code>entry.data()</code>.</strong> The signed message <code>entry.data()</code> is the JSON Canonicalization Scheme <span class="citation" data-cites="rfc8785">(<a href="references.html#ref-rfc8785" role="doc-biblioref">Rundgren et al. 2020</a>)</span> serialisation of the entry object without its <code>signature</code> member. The removal applies to exactly the member named <code>signature</code>; the signature covers every other member the declared revision permits. Because RFC 8785 orders members by name, producers may write members in any order on the line. An unknown member or an unsupported revision makes the entry malformed.</p>
 <p><strong>Chain bytes.</strong> <code>prev_hash</code> is the SHA-256 digest of the previous line exactly as written: every byte after the preceding line terminator (or the start of the file), up to and excluding the previous line’s own <code>0x0a</code>. A verifier applies no canonicalisation, so reformatting a line into a form a JSON parser would read as equivalent changes its hash and breaks the next entry’s predecessor check. The final line has no successor; a retained head or a heartbeat at or beyond it binds its exact bytes.</p>
 <p><a href="#fig-entry-byte-paths" class="quarto-xref">Figure&nbsp;<span>1</span></a> separates the two byte paths; the rules above define them.</p>
 <div id="fig-entry-byte-paths" class="quarto-float quarto-figure quarto-figure-center anchored" alt="One stored JSON line branches into an exact-byte hash path excluding LF, producing Event ID and next prev_hash, and a validated-object path removing signature before JCS to produce the signed message. Malformed objects are rejected before canonicalisation.">
@@ -386,14 +388,134 @@ Table&nbsp;2: Heartbeat fields
 </figure>
 </div>
 <p>The encoding is a UTF-8 JSON object with string values. The Hub signs the JCS serialisation of the other members and then adds <code>signature</code>, using ECDSA-P256 and the binary encodings of the <a href="#sec-entry-spec">entry specification</a>. A verifier rejects duplicate or unknown members, unknown revisions, unpaired surrogates and malformed values. <code>position</code> uses ASCII decimal digits without leading zeros. <code>issued_at</code> uses the same form, optionally followed by a decimal point and fractional digits without trailing zeros. The verifier takes the accepted Hub key and interval from the agreed publication settings.</p>
-<p><strong>Retrieval.</strong> Relative to the agreed topic base URL, <code>GET heartbeat/latest</code> returns the latest heartbeat as one JSON object and <code>GET heartbeat</code> returns the full list as an array. <code>GET heartbeat?from={timestamp}&amp;until={timestamp}</code> returns the heartbeats with <code>from &lt;= issued_at &lt; until</code>, and an omitted bound leaves that end open. If conflicting signed heartbeats arise, the service keeps both.</p>
+<p><strong>Retrieval.</strong> The Hub serves these endpoints for hosts to pull, and each host serves them for holders. Relative to the server’s base URL for the topic, <code>GET heartbeat/latest</code> returns the latest heartbeat as one JSON object and <code>GET heartbeat</code> returns the full list as an array. <code>GET heartbeat?from={timestamp}&amp;until={timestamp}</code> returns the heartbeats with <code>from &lt;= issued_at &lt; until</code>, and an omitted bound leaves that end open. If conflicting signed heartbeats arise, the host keeps both.</p>
+</section>
+<section id="sec-spec-submission" class="level2">
+<h2 class="anchored" data-anchor-id="sec-spec-submission">Submission, Receipt and Refusal</h2>
+<p><strong>Submission.</strong> A submission is one or more lines, each the exact bytes of an entry, joined by <code>0x0a</code> with no terminator after the last. The first line’s <code>prev_hash</code> is the expected head, and no other field carries it; each later line’s <code>prev_hash</code> names the hash of the line before it in the submission. A line is a JSON object and cannot contain a raw newline, so the separator is unambiguous; a body that ends in <code>0x0a</code> has an empty last line and counts as malformed. The Hub appends the body and one <code>0x0a</code>, whole or not at all. The <em>submission hash</em> is the SHA-256 digest of the body, so for a one-line submission it is the line’s Event ID.</p>
+<p><strong>Receipt and refusal.</strong> A receipt or refusal has the shape of a heartbeat, so a verifier that checks one checks all three: a flat JSON object of string members, signed under the Hub key over the JCS serialisation of the other members, with the encodings of the <a href="#sec-entry-spec">entry specification</a> and the rejection rules of the <a href="#sec-spec-heartbeat">heartbeat</a>. <a href="#tbl-receipt-fields" class="quarto-xref">Table&nbsp;<span>3</span></a> lists the members.</p>
+<div id="tbl-receipt-fields" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-receipt-fields-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Receipt and refusal fields
+</figcaption>
+<div aria-describedby="tbl-receipt-fields-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Member</th>
+<th style="text-align: left;">Receipt</th>
+<th style="text-align: left;">Refusal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>v</code>, <code>kind</code></td>
+<td style="text-align: left;"><code>"1"</code>, <code>"receipt"</code></td>
+<td style="text-align: left;"><code>"1"</code>, <code>"refusal"</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>topic_id</code></td>
+<td style="text-align: left;">Exact topic identifier</td>
+<td style="text-align: left;">Exact topic identifier</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>submission_hash</code></td>
+<td style="text-align: left;">Hash of the submitted body</td>
+<td style="text-align: left;">Hash of the submitted body</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>issued_at</code></td>
+<td style="text-align: left;">Hub-asserted time, as in a heartbeat</td>
+<td style="text-align: left;">Hub-asserted time, as in a heartbeat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>position</code>, <code>head_hash</code></td>
+<td style="text-align: left;">Chain state after the append; <code>head_hash</code> is the last appended line’s Event ID and binds every line before it</td>
+<td style="text-align: left;">Present on <code>head_mismatch</code>: the current state, so the submitter knows what extension to fetch</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>count</code></td>
+<td style="text-align: left;">Number of lines appended</td>
+<td style="text-align: left;">Absent</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>reason</code></td>
+<td style="text-align: left;">Absent</td>
+<td style="text-align: left;">One value from <a href="#tbl-refusal-reasons" class="quarto-xref">Table&nbsp;<span>4</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>line</code></td>
+<td style="text-align: left;">Absent</td>
+<td style="text-align: left;">On a verifier fault, the ordinal of the refused line within the body</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>signature</code></td>
+<td style="text-align: left;">Hub signature over the members above</td>
+<td style="text-align: left;">Hub signature over the members above</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-refusal-reasons" class="quarto-xref">Table&nbsp;<span>4</span></a> lists the reasons a refusal can carry. The first five are the verifier’s own fault names, so a refusal and a verifier verdict on the same line agree; the last is the Hub’s.</p>
+<div id="tbl-refusal-reasons" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-refusal-reasons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Refusal reasons
+</figcaption>
+<div aria-describedby="tbl-refusal-reasons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Reason</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>malformed</code></td>
+<td style="text-align: left;">The line is not an entry under the <a href="#sec-entry-spec">entry specification</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>chain_mismatch</code></td>
+<td style="text-align: left;">The line’s <code>prev_hash</code> is not the hash of the line before it in the submission</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>key_off_curve</code></td>
+<td style="text-align: left;">The <code>public_key</code> is 33 well-formed bytes that name no point on P-256</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>signature_invalid</code></td>
+<td style="text-align: left;">The signature is not this key’s over the line’s signed message</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>attestation_fault</code></td>
+<td style="text-align: left;">A Mint envelope failed one of the <a href="#sec-spec-mint">WebAuthn checks</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>head_mismatch</code></td>
+<td style="text-align: left;">The first line’s <code>prev_hash</code> is not the current head; another submission arrived first</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A receipt is the Hub’s signed commitment that the submission is in the history at that position, so a history that later omits it contradicts the Hub’s own signature, and the producer who retained the receipt holds the proof. The Hub never retries a refused submission and never reuses a signature over an old head: the submitter fetches the extension, verifies it and signs again.</p>
 </section>
 <section id="sec-spec-cbc" class="level2">
 <h2 class="anchored" data-anchor-id="sec-spec-cbc">CBC and Correction References</h2>
 <p><strong>Offer and acceptance.</strong> The offer is an ordinary entry whose payload names the subject of the agreement, the parties, the conditions and the time of the offer. The acceptance carries <code>subject_hash</code>, the offer’s Event ID, together with its acknowledgement of the terms. The reference binds the acceptance to that exact offer wherever the acceptance sits in the chain. When the parties require the acceptance to follow the offer immediately, its <code>prev_hash</code> also equals the offer’s Event ID. Whether <code>subject_hash</code> becomes an entry member or a payload field remains open, and it belongs to neither the base nor the Mint members above. Either way, the signature must cover it, directly or through the payload hash.</p>
 <section id="sec-corrections" class="level3">
 <h3 class="anchored" data-anchor-id="sec-corrections">Corrections</h3>
-<p>A statement that addresses an earlier entry refers to it through <code>subject_hash</code>, exactly as an acceptance does, while <code>prev_hash</code> still names the immediately preceding line. The payload says which kind of statement the entry is and carries its substance. When the accepting party disputes an offer, it withholds acceptance and records a signed objection that refers to the offer, so the CBC stays pending and the objection says why; a resolution is a further signed entry that refers to the objection. Application policy decides how it recognises an author’s replacement credential.</p>
+<p>A statement that addresses an earlier entry refers to it through <code>subject_hash</code>, exactly as an acceptance does, while <code>prev_hash</code> still names the immediately preceding line. The payload says which kind of statement the entry is and carries its substance. When the accepting party disputes an offer, it withholds acceptance and records a signed objection that refers to the offer, so the CBC stays pending and the objection says why; a resolution is a further signed entry that refers to the objection. When an author has lost its key and enrolled a new one (<a href="how-it-works.html#sec-identity-bound-signatures" class="quarto-xref"><span>What a Signature Proves</span></a>), application policy decides whether a correction signed with the new key counts as that author’s.</p>
 </section>
 </section>
 <section id="sec-spec-registry" class="level2">
@@ -408,7 +530,7 @@ Table&nbsp;2: Heartbeat fields
 <p>Under the <a href="#sec-spec-payload">payload rule</a>, the binding payload travels with its salt, so a holder resolves keys offline; the enrolment evidence, including any personal details, stays with the keeper under its access policy. Each topic declares the registries it accepts, by registry topic and root key, directly or through a binding in a registry it already accepts, and a change to that declaration is a CBC that the topic’s other parties countersign. When two accepted registries bind one key differently, the verifier reports <strong>conflicting</strong>, keeps both bindings and leaves the decision to the application.</p>
 <p>Three conventions remain open, each with the constraint an answer must meet:</p>
 <ul>
-<li><strong>Declaration encoding.</strong> How the first entry carries the accepted registries and the scope of each. Constraint: every holder can read it without the payload access policy, and it meets the open convention that binds a topic to its first entry (<a href="#sec-entry-spec">entry specification</a>).</li>
+<li><strong>Declaration encoding.</strong> How the first entry carries the accepted registries and the scope of each, and how a holder authenticates which topic a history belongs to through that first entry. Constraint: every holder can read it without the payload access policy.</li>
 <li><strong>Entry-to-binding reference.</strong> Whether a verifier resolves a key by lookup in the accepted registries at verification time, as this appendix assumes, or an entry carries a reference to its binding. Constraint: a carried reference needs a new entry revision, because an unknown member makes an entry malformed.</li>
 <li><strong>Attribution outcomes.</strong> The states the verifier reports for a key, modelled on the <a href="#sec-spec-outcomes">heartbeat outcomes</a>: bound, pending, unbound, conflicting, retired before signing and inside a claimed compromise window are the candidates. Constraint: signature validity, binding evidence, compromise status and authorisation stay separate.</li>
 </ul>

@@ -120,6 +120,7 @@ div.csl-indent {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
 <p><a href="https://eventchain-protocol.github.io/llms.txt">Questions reviewers ask</a></p>
+<p><a href="https://github.com/eventchain-protocol/eventchain">EventChain on GitHub</a></p>
 </div></div>
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
@@ -238,7 +239,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 13, 2026</p>
+      <p class="date-modified">October 14, 2026</p>
     </div>
   </div>
     
@@ -253,7 +254,7 @@ div.csl-indent {
 <section id="sec-standards-lineage" class="level2">
 <h2 class="anchored" data-anchor-id="sec-standards-lineage">Standards Lineage</h2>
 <p>EventChain sits in a lineage of cryptographic accountability systems. Haber and Stornetta established hash-linked time-stamping as a way to make document history tamper-evident without a conventional record-keeper <span class="citation" data-cites="haberstornetta1991">(<a href="references.html#ref-haberstornetta1991" role="doc-biblioref">Haber and Stornetta 1991</a>)</span>. Certificate Transparency and Trillian turned append-only transparency logs into operational infrastructure for public certificates <span class="citation" data-cites="rfc6962 trillian">(<a href="references.html#ref-rfc6962" role="doc-biblioref">Laurie et al. 2013</a>; <a href="references.html#ref-trillian" role="doc-biblioref">Google 2026</a>)</span>. SCITT generalises transparency receipts for supply-chain statements using COSE/CBOR and external transparency services <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026</a>)</span>. KERI focuses on self-certifying identifiers and key-event logs for decentralised identity <span class="citation" data-cites="keri2019">(<a href="references.html#ref-keri2019" role="doc-biblioref">Smith 2019</a>)</span>. Parakeet demonstrates privacy-preserving transparency through public commitments, private querying, and verifiable proof <span class="citation" data-cites="parakeet2023">(<a href="references.html#ref-parakeet2023" role="doc-biblioref">Malvai et al. 2023</a>)</span>. TrustChain shows that a blockchain can preserve data while leaving truth at origin unresolved <span class="citation" data-cites="malik2019">(<a href="references.html#ref-malik2019" role="doc-biblioref">Malik et al. 2019</a>)</span>.</p>
-<p>EventChain borrows the durable lessons and chooses a different operating point: identity-bound event authorship, portable proof artefacts, role-aware distribution, lightweight verification, and optional public time anchoring.</p>
+<p>EventChain keeps the chained hash and the published heartbeat from these systems. What it adds is a key for every signer and a file the parties keep themselves.</p>
 <div id="tbl-prior-art" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-prior-art-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -394,7 +395,7 @@ Table&nbsp;2: Earlier transparency and identity systems, using the same comparis
 </div>
 </figure>
 </div>
-<p>SCITT and EventChain operate at different layers. SCITT answers whether a transparency service registered a signed statement; its receipt can accompany the statement for verification <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026, sec. 7</a>)</span>. EventChain preserves producer-signed entries and their sequence in a portable file. An organisation could register an EventChain head in a SCITT transparency service for additional public auditability.</p>
+<p>SCITT and EventChain operate at different layers. SCITT answers whether a transparency service registered a signed statement; its receipt can accompany the statement for verification <span class="citation" data-cites="scitt2025">(<a href="references.html#ref-scitt2025" role="doc-biblioref">Birkholz et al. 2026, sec. 7</a>)</span>. EventChain preserves producer-signed entries and their sequence in a portable file.</p>
 </section>
 <section id="sec-adversarial-hub" class="level2">
 <h2 class="anchored" data-anchor-id="sec-adversarial-hub">Dishonest Hub</h2>
@@ -436,15 +437,15 @@ Table&nbsp;3: Adversarial Hub failure modes, detection paths, and residual risks
 </tr>
 <tr class="even">
 <td style="text-align: left;">Hub presents different histories to different holders (a fork)</td>
-<td style="text-align: left;">Each holder compares its copy with the heartbeat list; conflicting Hub-signed heartbeats attribute the fork to the Hub’s key</td>
-<td style="text-align: left;">Detection requires a heartbeat list that keeps every heartbeat and shows everyone the same list; fresh entries await the next heartbeat</td>
+<td style="text-align: left;">Each holder compares its copy with a heartbeat host the foundation lists for its topic; conflicting Hub-signed heartbeats attribute the fork to the Hub’s key</td>
+<td style="text-align: left;">Detection requires a host that keeps every heartbeat and shows everyone the same list; fresh entries await the next heartbeat</td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>If the heartbeat list (<a href="how-it-works.html#sec-hub-heartbeat" class="quarto-xref"><span>Hub Heartbeat</span></a>) is unreachable, the file alone provides fork consistency: incompatible branches become detectable when holders compare copies <span class="citation" data-cites="li2004sundr">(<a href="references.html#ref-li2004sundr" role="doc-biblioref">Li et al. 2004</a>)</span>. OpenTimestamps receipts cannot stand in for the list (<a href="how-it-works.html#sec-ots-rollups" class="quarto-xref"><span>OpenTimestamps</span></a>).</p>
+<p>If no host listed for the topic (<a href="how-it-works.html#sec-hub-heartbeat" class="quarto-xref"><span>Hub Heartbeat</span></a>) is reachable, the file alone provides fork consistency: incompatible branches become detectable when holders compare copies <span class="citation" data-cites="li2004sundr">(<a href="references.html#ref-li2004sundr" role="doc-biblioref">Li et al. 2004</a>)</span>. OpenTimestamps receipts cannot stand in for the list (<a href="how-it-works.html#sec-ots-rollups" class="quarto-xref"><span>OpenTimestamps</span></a>).</p>
 <p>The Hub’s one remaining duty, staying available to accept new entries and serve copies, rests on the Hub service provider’s service agreement.</p>
 </section>
 <section id="sec-appendix-trust-boundary" class="level2">
@@ -691,7 +692,7 @@ Table&nbsp;8: Physical measurement
 </section>
 <section id="sec-appendix-choosing" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-choosing">Choosing an Approach</h2>
-<p><a href="#tbl-solution-landscape" class="quarto-xref">Table&nbsp;<span>9</span></a> sets EventChain beside the other ways of keeping provenance. The approaches combine: an organisation might keep ERP audit trails internally, use EventChain for the evidence shared across organisations, and register heads in a SCITT service for public accountability.</p>
+<p><a href="#tbl-solution-landscape" class="quarto-xref">Table&nbsp;<span>9</span></a> sets EventChain beside the other ways of keeping provenance. The approaches combine: an organisation might keep ERP audit trails internally and use EventChain for the evidence shared across organisations.</p>
 <div id="tbl-solution-landscape" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-solution-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -806,9 +807,9 @@ Table&nbsp;10: Evidence production and availability
 <td style="text-align: left;">Holders cannot tell whether their copy is current</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Heartbeat-list preservation and accepted Hub keys</td>
-<td style="text-align: left;">Keeper of the heartbeat list</td>
-<td style="text-align: left;">Preserves every heartbeat; serves the same list and accepted Hub keys to everyone</td>
+<td style="text-align: left;">Heartbeat hosting and accepted Hub keys</td>
+<td style="text-align: left;">Heartbeat hosts the foundation lists for the topic</td>
+<td style="text-align: left;">Pull each heartbeat from the Hub, check it, preserve it; serve the same list and accepted Hub keys to everyone</td>
 <td style="text-align: left;">Holders cannot establish freshness or reliably detect a fork</td>
 </tr>
 </tbody>
