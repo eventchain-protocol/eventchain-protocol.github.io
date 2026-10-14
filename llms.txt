@@ -1,4 +1,4 @@
-# EventChain: Consensus by Comparison
+# EventChain: A Distributed History Without a Distributed System
 
 > Answers map: common questions linked to the paper's arguments and their limits.
 
